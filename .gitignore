@@ -1,0 +1,4 @@
+mnemonics.txt
+node_modules/
+.env
+.encryptedKey.json
