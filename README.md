@@ -46,7 +46,11 @@ To get a local copy up and running follow these simple example steps.
 
 ### Installation
 
-1. Install Ganache or Ganache-CLI and set-up a local Ethereum network
+1. Create a wallet in Metamask on Sepolia Testnet. Get some ETH to use for transaction fees using one of the many faucets available. Here's two that might work for you:
+
+    #### Main Faucet: https://faucets.chain.link
+    #### Backup Faucet: https://sepoliafaucet.com/
+
 2. Clone the repo
     ```sh
     git clone https://github.com/Oleh325/solidity-course.git
