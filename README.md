@@ -25,7 +25,7 @@
 
 ## About The Project
 
-This is a sample "Simple Storage" project on Solidity, that was created by following the course "Learn Blockchain, Solidity, and Full Stack Web3 Development with JavaScript – 32-Hour Course" from freeCodeCamp at YouTube. The smart contract itself is a basic example of a contract that can store some data on the blockchain, in this particular case — an array of people and their favorite numbers. The contract can be deployed locally, or directly to the Testnet or Mainnet.
+This is a sample "Simple Storage" project on Solidity, that was created by following the course "Learn Blockchain, Solidity, and Full Stack Web3 Development with JavaScript – 32-Hour Course" from freeCodeCamp at YouTube. The project is written using HardHat Ethereum development environment, and has a sample task that returns a current block number, and also has tests that cover the smart contract.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -34,6 +34,7 @@ This is a sample "Simple Storage" project on Solidity, that was created by follo
 -   [![Node][Nodejs.org]][Node-url]
 -   [![Typescript][Typescriptlang.org]][Typescript-url]
 -   [![Solidity][Soliditylang.org]][Solidity-url]
+-   [<img src="https://i.ibb.co/vmt4rKJ/badge.jpg" alt="Hardhat logo" style="height: 25px; width:97px;"/>][Hardhat-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -45,7 +46,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Installation
 
-1. Create a wallet in Metamask on Sepolia Testnet. Get some ETH to use for transaction fees using one of the many faucets available. Here's two that might work for you:
+1. **(OPTIONAL)** Create a wallet in Metamask on Sepolia Testnet. Get some ETH to use for transaction fees using one of the many faucets available. Here's two that might work for you:
 
     #### Main Faucet: https://faucets.chain.link
     #### Backup Faucet: https://sepoliafaucet.com/
@@ -59,14 +60,18 @@ To get a local copy up and running follow these simple example steps.
     yarn install
     ```
 4. Create an account at [Alchemy.com][Alchemy-url], create an application on the current active Ethereum Testnet, and get the RPC URL
-5. Create a ".env" file in the project's main directory. Add the RPC_URL, PRIVATE_KEY (the private key of the wallet you will be using on the test network to deploy the contract) and PRIVATE_KEY_PASSWORD (this one is custom)
+5. Create a ".env" file and populate it with the following values:
     ```env
-    RPC_URL=https://example.com/
-    PRIVATE_KEY=0x000example000
-    PRIVATE_KEY_PASSWORD=your_custom_password
+    SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/example - optional
+    LOCALHOST_RPC_URL=http://127.0.0.1:8545/
+    SEPOLIA_PRIVATE_KEY=0x000example000
+    ETHERSCAN_API_KEY=your_etherscan_api_key
     ```
-6. Run the encryptKey.ts file to get your private key encrypted and stored locally at "./.encryptedKey.json"
-7. Remove PRIVATE_KEY and PRIVATE_KEY_PASSWORD from your ".env" file
+6. To compile the contract, run:
+    ```sh
+    yarn hardhat compile
+    ```
+    This will create an "artifacts" folder with the compiled contract and typechain files.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -74,11 +79,29 @@ To get a local copy up and running follow these simple example steps.
 
 ## Usage
 
-For deploying, run:
+To run tests, run:
+```sh
+yarn hardhat test
+```
+
+For deploying on Sepolia, run:
 
 ```sh
-PRIVATE_KEY_PASSWORD=your_custom_password yarn ts-node deploy.ts
+yarn hardhat run scripts/deploy.ts --network sepolia
 ```
+
+It will return the address of the deployed contract, which you can look up on Sepolia Testnet Etherscan: https://sepolia.etherscan.com/
+
+To deploy the contract to Localhost, run:
+```sh
+yarn hardhat node
+```
+and in another terminal window run:
+```sh
+yarn hardhat run scripts/deploy.ts --network localhost
+```
+
+All the info about the deployed contract will be displayed in the terminal window running the node.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -121,4 +144,5 @@ Please, check out <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/
 [Typescript-url]: https://www.typescriptlang.org/
 [Soliditylang.org]: https://img.shields.io/badge/Solidity-e6e6e6?style=for-the-badge&logo=solidity&logoColor=black
 [Solidity-url]: https://soliditylang.org/
+[Hardhat-url]: https://hardhat.org/
 [Alchemy-url]: https://www.alchemy.com/
