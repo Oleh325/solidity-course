@@ -1,4 +1,18 @@
 mnemonics.txt
-node_modules/
+node_modules
 .env
-.encryptedKey.json
+
+# Hardhat files
+/cache
+/artifacts
+gas-report.txt
+coverage.json
+coverage
+
+# TypeChain files
+/typechain
+/typechain-types
+
+# solidity-coverage files
+/coverage
+/coverage.json
