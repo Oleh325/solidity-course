@@ -1,47 +1,27 @@
-import { ethers, run, network } from "hardhat"
+import { ethers } from "hardhat";
 
 async function main() {
-    const simpleStorageFactory =
-        await ethers.getContractFactory("SimpleStorage")
-    console.log("Deploying...")
-    const simpleStorage = await simpleStorageFactory.deploy()
-    await simpleStorage.waitForDeployment()
-    const address = await simpleStorage.getAddress()
-    console.log(`Deployed contract to: ${address}`)
-    if (network.config.chainId === 11155111 && process.env.ETHERSCAN_API_KEY) {
-        console.log("Waiting for block transactions...")
-        await simpleStorage.deploymentTransaction()?.wait(6)
-        await verify(address, [])
-    }
-    const currentFavNumber = await simpleStorage.retreive()
-    console.log(`Current favourite number: ${currentFavNumber}`)
+  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
+  const unlockTime = currentTimestampInSeconds + 60;
 
-    const transactionResponse = await simpleStorage.store(7)
-    await transactionResponse.wait(1)
+  const lockedAmount = ethers.parseEther("0.001");
 
-    const updatedFavNumber = await simpleStorage.retreive()
-    console.log(`Updated favourite number: ${updatedFavNumber}`)
+  const lock = await ethers.deployContract("Lock", [unlockTime], {
+    value: lockedAmount,
+  });
+
+  await lock.waitForDeployment();
+
+  console.log(
+    `Lock with ${ethers.formatEther(
+      lockedAmount
+    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
+  );
 }
 
-async function verify(contractAddress: string, args: any[]) {
-    console.log("Verifying contract...")
-    try {
-        await run("verify:verify", {
-            address: contractAddress,
-            constructorArguments: args,
-        })
-    } catch (e: any) {
-        if (e.message.toLowerCase().includes("already verified")) {
-            console.log("Already verified!")
-        } else {
-            console.log(e)
-        }
-    }
-}
-
-main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-        console.error(error)
-        process.exit(1)
-    })
+// We recommend this pattern to be able to use async/await everywhere
+// and properly handle errors.
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
