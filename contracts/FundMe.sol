@@ -16,8 +16,8 @@ contract FundMe {
     using PriceConverter for uint256;
 
     uint256 constant public MINIMUM_USD = 5 * 1e18;
-    address[] public funders;
-    mapping(address => uint256) public addressToAmountFunded;
+    address[] public s_funders;
+    mapping(address => uint256) public s_addressToAmountFunded;
     address public immutable i_owner;
     AggregatorV3Interface public immutable i_priceFeed;
 
@@ -44,23 +44,25 @@ contract FundMe {
      */
     function fund() public payable {
         if(msg.value.getConversionRate(i_priceFeed) <= MINIMUM_USD) revert FundMe__NotEnoughSent();
-        if(addressToAmountFunded[msg.sender] == 0) {
-            funders.push(msg.sender);
-            addressToAmountFunded[msg.sender] = msg.value;
+        if(s_addressToAmountFunded[msg.sender] == 0) {
+            s_funders.push(msg.sender);
+            s_addressToAmountFunded[msg.sender] = msg.value;
         }
         else {
-            addressToAmountFunded[msg.sender] += msg.value;
+            s_addressToAmountFunded[msg.sender] += msg.value;
         }
     }
 
     /**
      * @notice This function is used to withdraw all the funds from the contract. It will revert if the caller is not the owner.
      */
-    function withdraw() public onlyOwner {
-        for(uint256 funderIdx = 0; funderIdx < funders.length; funderIdx++) {
-            addressToAmountFunded[funders[funderIdx]] = 0;
+    function withdraw() public payable onlyOwner {
+        address[] memory funders = s_funders;
+        for(uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++) {
+            address funder = funders[funderIndex];
+            s_addressToAmountFunded[funder] = 0;
         }
-        funders = new address[](0);
+        s_funders = new address[](0);
 
         (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
         if(!callSuccess) revert FundMe__CallFailed();

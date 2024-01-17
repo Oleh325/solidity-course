@@ -4,6 +4,7 @@ import { developmentChains } from "../helper-hardhat.config"
 
 const DECIMALS = "18"
 const INITIAL_PRICE = "2000000000000000000000" // 2000
+
 const deployMocks: DeployFunction = async function (
     hre: HardhatRuntimeEnvironment
 ) {
