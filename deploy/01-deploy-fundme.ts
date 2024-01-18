@@ -18,7 +18,6 @@ const deployFundMe: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     log("----------------------------------------------------")
     log("Deploying FundMe and waiting for confirmations...")
 
-
     const fundMe = await deploy("FundMe", {
         from: deployer,
         args: [ethUsdPriceFeedAddress],
@@ -26,10 +25,12 @@ const deployFundMe: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
         waitConfirmations: networkConfig[network.name].blockConfirmations || 1,
     })
 
-    if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+    if (
+        !developmentChains.includes(network.name) &&
+        process.env.ETHERSCAN_API_KEY
+    ) {
         await verify(fundMe.address, [ethUsdPriceFeedAddress])
     }
-
 }
 
 export default deployFundMe
