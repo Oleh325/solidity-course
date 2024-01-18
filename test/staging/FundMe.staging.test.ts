@@ -3,6 +3,7 @@ import { network, ethers } from "hardhat"
 import { FundMe } from "../../typechain-types"
 import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers"
 import { developmentChains } from "../../helper-hardhat.config"
+import fs from "fs"
 
 developmentChains.includes(network.name)
     ? describe.skip
@@ -14,12 +15,12 @@ developmentChains.includes(network.name)
               deployer = (await ethers.getSigners())[0]
               fundMe = (await ethers.getContractAt(
                   "FundMe",
-                  deployer.address
+                  fs.readFileSync("deployments/sepolia/fundMeAddress.txt").toString()
               )) as FundMe
           })
 
           it("allows people to fund and withdraw", async function () {
-              fundMe.fund({ value: sendValue })
+              fundMe.fund({ value: sendValue }).then((tx) => tx.wait(1))
               await fundMe
                   .withdraw({
                       gasLimit: 100000,

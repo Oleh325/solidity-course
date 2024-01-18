@@ -2,6 +2,7 @@ import { HardhatRuntimeEnvironment } from "hardhat/types"
 import { DeployFunction } from "hardhat-deploy/types"
 import { networkConfig, developmentChains } from "../helper-hardhat.config"
 import verify from "../utils/verify"
+import fs from "fs"
 
 const deployFundMe: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const { getNamedAccounts, deployments, network } = hre
@@ -30,6 +31,10 @@ const deployFundMe: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
         process.env.ETHERSCAN_API_KEY
     ) {
         await verify(fundMe.address, [ethUsdPriceFeedAddress])
+    }
+
+    if (!developmentChains.includes(network.name)) {
+        fs.writeFileSync("deployments/sepolia/fundMeAddress.txt", fundMe.address)
     }
 }
 
