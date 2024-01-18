@@ -1,17 +1,25 @@
 import { HardhatUserConfig } from "hardhat/config"
-import "dotenv/config"
 import "@nomicfoundation/hardhat-toolbox"
-import "./tasks/block-number.ts"
-import "hardhat-gas-reporter"
-import "solidity-coverage"
+import "dotenv/config"
+import "hardhat-deploy"
 
-const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL || "https://eth-sepolia.g.alchemy.com/example"
-const LOCALHOST_RPC_URL = process.env.LOCALHOST_RPC_URL || "http://127.0.0.1:8545/"
-const SEPOLIA_PRIVATE_KEY = process.env.SEPOLIA_PRIVATE_KEY || "0xkey"
-const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "key"
-const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "key"
+const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL || ""
+const SEPOLIA_PRIVATE_KEY = process.env.SEPOLIA_PRIVATE_KEY || ""
+const LOCALHOST_RPC_URL = process.env.LOCALHOST_RPC_URL || ""
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ""
+const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || ""
 
 const config: HardhatUserConfig = {
+    solidity: {
+        compilers: [
+            {
+                version: "0.8.19",
+            },
+            {
+                version: "0.6.6",
+            },
+        ],
+    },
     defaultNetwork: "hardhat",
     networks: {
         sepolia: {
@@ -24,17 +32,21 @@ const config: HardhatUserConfig = {
             chainId: 31337,
         },
     },
-    solidity: "0.8.19",
     etherscan: {
         apiKey: ETHERSCAN_API_KEY,
     },
     gasReporter: {
-        enabled: false,
+        enabled: true,
         outputFile: "gas-report.txt",
         noColors: true,
         currency: "USD",
         coinmarketcap: COINMARKETCAP_API_KEY,
-        token: "MATIC"
+        token: "MATIC",
+    },
+    namedAccounts: {
+        deployer: {
+            default: 0,
+        },
     },
 }
 

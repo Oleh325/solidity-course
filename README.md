@@ -25,7 +25,7 @@
 
 ## About The Project
 
-This is a sample "Simple Storage" project on Solidity, that was created by following the course "Learn Blockchain, Solidity, and Full Stack Web3 Development with JavaScript – 32-Hour Course" from freeCodeCamp at YouTube. The project is written using HardHat Ethereum development environment, and has a sample task that returns a current block number, and also has tests that cover the smart contract.
+This is a sample "FundMe" crowdfunding project on Solidity, that was created by following the course "Learn Blockchain, Solidity, and Full Stack Web3 Development with JavaScript – 32-Hour Course" from freeCodeCamp at YouTube. The project is written using HardHat Ethereum development environment. The contract can be deployed to Sepolia Testnet or Localhost. The contract is being automatically verified on Sepolia Etherscan. Everything is covered with tests.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -59,7 +59,7 @@ To get a local copy up and running follow these simple example steps.
     ```sh
     yarn install
     ```
-4. Create an account at [Alchemy.com][Alchemy-url], create an application on the current active Ethereum Testnet, and get the RPC URL
+4. **(OPTIONAL)** Create an account at [Alchemy.com][Alchemy-url], create an application on the current active Ethereum Testnet, and get the RPC URL
 5. Create a ".env" file and populate it with the following values:
     ```env
     SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/example - optional
@@ -79,15 +79,20 @@ To get a local copy up and running follow these simple example steps.
 
 ## Usage
 
-To run tests, run:
+To run tests locally, run:
 ```sh
-yarn hardhat test
+yarn test
 ```
 
-For deploying on Sepolia, run:
+To run tests on Sepolia, run:
+```sh
+yarn test staging
+```
+
+For deploying on Sepolia Testnet, run:
 
 ```sh
-yarn hardhat run scripts/deploy.ts --network sepolia
+yarn hardhat deploy --network sepolia
 ```
 
 It will return the address of the deployed contract, which you can look up on Sepolia Testnet Etherscan: https://sepolia.etherscan.com/
@@ -98,10 +103,21 @@ yarn hardhat node
 ```
 and in another terminal window run:
 ```sh
-yarn hardhat run scripts/deploy.ts --network localhost
+yarn hardhat deploy
 ```
 
 All the info about the deployed contract will be displayed in the terminal window running the node.
+
+To interact with the contract, run:
+```sh
+yarn hardhat run scripts/fund.ts
+```
+for funding the contract, or:
+```sh
+yarn hardhat run scripts/withdraw.ts
+```
+for withdrawing the funds from the contract.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
