@@ -209,9 +209,9 @@ const FundMe = (props: FundMeProps) => {
                         placeholder="0.01"
                         maxLength={20}
                         value={
-                            fundAmount < 0.01 &&
-                            fundAmount.toString().length >= 4
-                                ? 0.01
+                            fundAmount < 0.005 &&
+                            fundAmount.toString().length >= 5
+                                ? 0.005
                                 : fundAmount
                         }
                         onChange={(e) => setFundAmount(e.target.value)}
