@@ -106,7 +106,7 @@ and in another terminal window run:
 yarn hardhat deploy
 ```
 
-All the info about the deployed contract will be displayed in the terminal window running the node.
+All the info about the deployed contract will be displayed in the terminal window running the node. The contract address file is generated and saved to "deployments/sepolia" folder for staging tests. The contract address and ABI files are generated and saved to "Frontend/public" folder for testing frontend with Testnet or locally.
 
 To interact with the contract, run:
 ```sh
