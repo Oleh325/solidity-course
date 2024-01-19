@@ -1,33 +1,85 @@
-import './App.scss';
+import "./App.scss"
+import { useEffect, useState } from "react"
+import { ethers } from "ethers"
+import { isLocalNetwork } from "./config"
+import FundMe from "./components/FundMe"
 
 function App() {
-
-
-    return (
-        <div className="App">
-            <header className="App-contents">
-                <h1>FundMe</h1>
-            </header>
-            <div className="App-body">
-                <button className="connect button">Connect</button>
-                <div className="connected-at">Connected at: 0x...</div>
-                <div className="fund-holder">
-                    <div className="fund-holder-inputs">
-                        <input className="eth-amount-input" placeholder="0.01" />
-                        <div className="eth-token">ETH</div>
-                    </div>
-                    <button className="fund button">Fund</button>
-                </div> 
-                <div className="balance-and-withdraw">
-                    <div className="balance">Balance: 0.0 ETH</div>
-                    <div className="withdraw-buttons">
-                        <button className="update-balance button">Update balance</button>
-                        <button className="withdraw button">Withdraw</button>
-                    </div>
+    const [contents, setContents] = useState(
+        <div className="App-contents">
+            <div className="waiting-network">
+                <div className="waiting-network-text">
+                    Waiting for network...
                 </div>
             </div>
         </div>
-    );
+    )
+    const { ethereum } = window
+
+        useEffect(() => {
+            if(!ethereum) {
+                return
+            }
+            const checkNetworks = async () => {
+                const provider = new ethers.BrowserProvider(ethereum)
+                const network = await provider.getNetwork()
+            
+                if(isLocalNetwork && network.chainId !== BigInt(31337)) {
+                    setContents (
+                        <div className="App-contents">
+                            <div className="wrong-network">
+                                <div className="wrong-network-text">
+                                    Please switch to local network!
+                                </div>
+                            </div>
+                        </div>
+                    )
+                    return
+                }
+            
+                if(!isLocalNetwork && network.chainId !== BigInt(11155111)) {
+                    setContents (
+                        <div className="App-contents">
+                            <div className="wrong-network">
+                                <div className="wrong-network-text">
+                                    Please switch to Sepolia network!
+                                </div>
+                            </div>
+                        </div>
+                    )
+                    return
+                }
+                setContents(<FundMe ethereum={ethereum} />)
+            }
+            
+            checkNetworks()
+
+            const intervalId = setInterval(async () => {
+                checkNetworks()
+            }, 2000)
+    
+            return () => clearInterval(intervalId)
+        }, [ethereum])
+
+    
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <h1>FundMe</h1>
+            </header>
+            {ethereum 
+            ? contents
+            : <div className="App-contents">
+                  <div className="no-metamask">
+                      <div className="no-metamask-text">
+                          Please install Metamask wallet
+                      </div>
+                  </div>
+              </div>
+            }
+        </div>
+    )
 }
 
-export default App;
+export default App
