@@ -58,20 +58,36 @@
         background-color: #008302;
     }
 
-    .fund-status-failed {
+    .tx-status-failed {
         font-size: 1.5rem;
         font-weight: 600;
         color: #e50000;
     }
-    .fund-status-success {
+    .tx-status-success {
         font-size: 1.5rem;
         font-weight: 600;
         color: #29af29;
     }
-    .fund-status-pending {
+    .tx-status-pending {
         font-size: 1.5rem;
         font-weight: 600;
         color: #c2c2c2;
+    }
+    .tx-hash-holder {
+        display: flex;
+        gap: 0.5rem;
+
+        .tx-hash-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #8e8e8e;
+        }
+        .tx-hash {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #8e8e8e;
+            cursor: pointer;
+        }
     }
 }
 

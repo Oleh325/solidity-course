@@ -1,6 +1,7 @@
 
 import "./FundMe.scss"
 import React, { useEffect, useState } from "react"
+import { toast, Bounce, ToastContainer } from "react-toastify"
 import { ethers } from "ethers"
 import { isLocalNetwork } from "../config"
 import { MetaMaskInpageProvider } from "@metamask/providers"
@@ -12,6 +13,7 @@ interface FundMeProps {
 const FundMe = (props: FundMeProps) => {
     const [hidden, setHidden] = useState("")
     const [txStatus, setTxStatus] = useState(<></>)
+    const [txHash, setTxHash] = useState(<></>)
     const [accounts, setAccounts] = useState([]) as [Array<string>, Function]
     const [balance, setBalance] = useState(0.0) as [number, Function]
     const [fundAmount, setFundAmount] = useState() as [number, Function]
@@ -26,6 +28,21 @@ const FundMe = (props: FundMeProps) => {
                 setHidden("hidden")
                 setAccounts(accounts)
             }
+        })
+    }
+
+    const copyToClipboard = (text: string) => {
+        navigator.clipboard.writeText(text)
+        toast("Copied to clipboard!", {
+            position: "bottom-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
         })
     }
 
@@ -80,12 +97,12 @@ const FundMe = (props: FundMeProps) => {
 
     const withdraw = async () => {
         if(accounts!.length === 0) {
-            setTxStatus(<div className="fund-status-failed">No connection!</div>)
+            setTxStatus(<div className="tx-status-failed">No connection!</div>)
             return
         }
         const contract = await getContract()
         if(!contract) {
-            setTxStatus(<div className="fund-status-failed">No contract found!</div>)
+            setTxStatus(<div className="tx-status-failed">No contract found!</div>)
             return
         }
         const transactionResponse = await contract.withdraw().catch((err: any) => {
@@ -96,14 +113,20 @@ const FundMe = (props: FundMeProps) => {
             } else {
             error = err.message
             }
-            setTxStatus(<div title={error} className="fund-status-failed">Withdraw transaction failed with: "{error.slice(0, 15)}{error.length > 15 ? "..." : ""}"</div>)
+            setTxStatus(<div title={error} className="tx-status-failed">Withdraw transaction failed with: "{error.slice(0, 15)}{error.length > 15 ? "..." : ""}"</div>)
         })
         if(!transactionResponse) {
             return
         }
-        setTxStatus(<div className="fund-status-pending">Withdraw transaction pending...</div>)
+        setTxStatus(<div className="tx-status-pending">Withdraw transaction pending...</div>)
+        setTxHash(
+            <div className="tx-hash-holder">
+                <div className="tx-hash-title">Withdraw transaction hash:</div>
+                <div title={transactionResponse.hash} className="tx-hash" onClick={e => copyToClipboard(transactionResponse.hash)}>{transactionResponse.hash.slice(0, 15)}...</div>
+            </div>
+        )
         await transactionResponse.wait(1).then(() => {
-            setTxStatus(<div className="fund-status-success">Withdraw transaction successful!</div>)
+            setTxStatus(<div className="tx-status-success">Withdraw transaction successful!</div>)
         }).catch((err: any) => {
             let error = ""
             if (err.data && contract) {
@@ -112,22 +135,22 @@ const FundMe = (props: FundMeProps) => {
               } else {
                 error = err.message
               }
-            setTxStatus(<div title={error} className="fund-status-failed">Withdraw transaction failed with: "{error.slice(0, 15)}{error.length > 15 ? "..." : ""}"</div>)
+            setTxStatus(<div title={error} className="tx-status-failed">Withdraw transaction failed with: "{error.slice(0, 15)}{error.length > 15 ? "..." : ""}"</div>)
         })
     }
 
     const fund = async (ethAmount: number) => {
         if(!ethAmount) {
-            setTxStatus(<div className="fund-status-failed">Please enter an amount you want to fund.</div>)
+            setTxStatus(<div className="tx-status-failed">Please enter an amount you want to fund.</div>)
             return
         }
         if(accounts!.length === 0) {
-            setTxStatus(<div className="fund-status-failed">No connection!</div>)
+            setTxStatus(<div className="tx-status-failed">No connection!</div>)
             return
         }
         const contract = await getContract()
         if(!contract) {
-            setTxStatus(<div className="fund-status-failed">No contract found!</div>)
+            setTxStatus(<div className="tx-status-failed">No contract found!</div>)
             return
         }
         const transactionResponse = await contract.fund({ value: ethers.parseEther(ethAmount.toString()) }).catch((err: any) => {
@@ -138,14 +161,20 @@ const FundMe = (props: FundMeProps) => {
               } else {
                 error = err.message
               }
-            setTxStatus(<div title={error} className="fund-status-failed">Transaction failed with: "{error.slice(0, 25)}{error.length > 25 ? "..." : ""}"</div>)
+            setTxStatus(<div title={error} className="tx-status-failed">Transaction failed with: "{error.slice(0, 25)}{error.length > 25 ? "..." : ""}"</div>)
         })
         if(!transactionResponse) {
             return
         }
-        setTxStatus(<div className="fund-status-pending">Transaction pending...</div>)
+        setTxStatus(<div className="tx-status-pending">Transaction pending...</div>)
+        setTxHash(
+            <div className="tx-hash-holder">
+                <div className="tx-hash-title">Transaction hash:</div>
+                <div title={transactionResponse.hash} className="tx-hash" onClick={e => copyToClipboard(transactionResponse.hash)}>{transactionResponse.hash.slice(0, 20)}...</div>
+            </div>
+        )
         await transactionResponse.wait(1).then(() => {
-            setTxStatus(<div className="fund-status-success">Transaction successful!</div>)
+            setTxStatus(<div className="tx-status-success">Transaction successful!</div>)
         }).catch((err: any) => {
             let error = ""
             if (err.data && contract) {
@@ -154,7 +183,7 @@ const FundMe = (props: FundMeProps) => {
               } else {
                 error = err.message
               }
-            setTxStatus(<div title={error} className="fund-status-failed">Transaction failed with: "{error.slice(0, 25)}{error.length > 25 ? "..." : ""}"</div>)
+            setTxStatus(<div title={error} className="tx-status-failed">Transaction failed with: "{error.slice(0, 25)}{error.length > 25 ? "..." : ""}"</div>)
         })
     }
     
@@ -220,6 +249,7 @@ const FundMe = (props: FundMeProps) => {
                     <div className="eth-token">ETH</div>
                 </div>
                 {txStatus}
+                {txHash}
                 <button
                     className="fund button"
                     onClick={(e) => fund(fundAmount)}
@@ -236,6 +266,7 @@ const FundMe = (props: FundMeProps) => {
                     <button className="withdraw button" onClick={withdraw}>Withdraw all</button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }

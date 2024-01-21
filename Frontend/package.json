@@ -48,6 +48,7 @@
         "ethers": "^6.10.0",
         "fs": "^0.0.1-security",
         "node-sass": "^9.0.0",
-        "prettier": "^3.2.4"
+        "prettier": "^3.2.4",
+        "react-toastify": "^10.0.4"
     }
 }

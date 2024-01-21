@@ -1,5 +1,6 @@
 import "./App.scss"
 import { useEffect, useState } from "react"
+import "react-toastify/dist/ReactToastify.css"
 import { ethers } from "ethers"
 import { isLocalNetwork } from "./config"
 import FundMe from "./components/FundMe"
