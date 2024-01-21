@@ -35,6 +35,11 @@ const deployFundMe: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
     if (!developmentChains.includes(network.name)) {
         fs.writeFileSync("deployments/sepolia/fundMeAddress.txt", fundMe.address)
+        fs.writeFileSync("../Frontend/public/fundMeAddress.txt", fundMe.address)
+        fs.writeFileSync("../Frontend/public/fundMeABI.json", JSON.stringify(fundMe.abi))
+    } else {
+        fs.writeFileSync("../Frontend/public/fundMeAddress.local.txt", fundMe.address)
+        fs.writeFileSync("../Frontend/public/fundMeABI.local.json", JSON.stringify(fundMe.abi))
     }
 }
 
