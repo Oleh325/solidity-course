@@ -1,3 +1,5 @@
+<h1 align="center">FundMe</h1>
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
