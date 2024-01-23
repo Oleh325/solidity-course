@@ -3,9 +3,10 @@ import {
     networkConfig,
     developmentChains,
     VERIFICATION_BLOCK_CONFIRMATIONS,
-} from "../helper-hardhat-config.js"
+} from "../helper-hardhat-config"
 import { ethers } from "hardhat"
 import verify from "../utils/verify"
+import { VRFCoordinatorV2Mock } from "../typechain-types"
 
 const VRF_SUB_FUND_AMOUNT = ethers.parseEther("2")
 
@@ -23,7 +24,7 @@ const deployRaffle = async (hre: HardhatRuntimeEnvironment) => {
 
     if (developmentChains.includes(network.name)) {
         vrfCoordinatorV2Address = (await deployments.get("VRFCoordinatorV2Mock")).address
-        const vrfCoordinatorV2Mock = await ethers.getContractAt(
+        const vrfCoordinatorV2Mock: VRFCoordinatorV2Mock = await ethers.getContractAt(
             "VRFCoordinatorV2Mock",
             vrfCoordinatorV2Address,
         )
@@ -58,6 +59,13 @@ const deployRaffle = async (hre: HardhatRuntimeEnvironment) => {
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
         log("Verifying on Etherscan...")
         await verify(raffle.address, args)
+    }
+
+    if (developmentChains.includes(network.name)) {
+        const vrfCoordinatorV2Mock: VRFCoordinatorV2Mock = await ethers.getContract(
+          "VRFCoordinatorV2Mock"
+        );
+        await vrfCoordinatorV2Mock.addConsumer(subscriptionId!, raffle.address);
     }
 
     log("----------------------------------------------")
