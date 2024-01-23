@@ -1,13 +1,9 @@
-// import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers"
 import { assert, expect } from "chai"
-// import { BigNumber } from "ethers"
 import { network, deployments, ethers } from "hardhat"
 import { developmentChains, networkConfig } from "../../helper-hardhat-config"
 import { Raffle, VRFCoordinatorV2Mock } from "../../typechain-types"
 import { BigNumberish } from "ethers"
 import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers"
-import { resolve } from "path"
-import { rejects } from "assert"
 
 !developmentChains.includes(network.name)
     ? describe.skip
@@ -189,7 +185,11 @@ import { rejects } from "assert"
                               assert(endingTimestamp > startingTimestamp)
                               assert.equal(
                                   winnerEndingBalance.toString(),
-                                  (winnerStartingBalance + (BigInt(raffleEntranceFee) * BigInt(additionalEntrants)) + BigInt(raffleEntranceFee)).toString()
+                                  (
+                                      winnerStartingBalance +
+                                      BigInt(raffleEntranceFee) * BigInt(additionalEntrants) +
+                                      BigInt(raffleEntranceFee)
+                                  ).toString(),
                               )
                           } catch (error) {
                               reject(error)
@@ -211,6 +211,18 @@ import { rejects } from "assert"
                           raffle.getAddress(),
                       )
                   })
+              })
+          })
+
+          describe("get constants", () => {
+              it("returns number of words", async function () {
+                  const numWords = await raffle.getNumWords()
+                  assert.equal(numWords.toString(), "1")
+              })
+
+              it("returns network confirmations", async function () {
+                  const confirmations = await raffle.getRequestConfirmations()
+                  assert.equal(confirmations.toString(), "3")
               })
           })
       })

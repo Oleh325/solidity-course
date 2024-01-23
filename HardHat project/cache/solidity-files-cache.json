@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/oleh325/Solidity Course/HardHat project/contracts/Raffle.sol": {
-      "lastModificationDate": 1705954397184,
+      "lastModificationDate": 1706048344119,
       "contentHash": "6076066f0d8e5ce0c866fa26f39b1798",
       "sourceName": "contracts/Raffle.sol",
       "solcConfig": {
