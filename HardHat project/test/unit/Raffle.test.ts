@@ -169,7 +169,7 @@ import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers"
                   }
                   const startingTimestamp = await raffle.getLatestTimestamp()
 
-                  await new Promise(async (resolve, reject) => {
+                  await new Promise<void>(async (resolve, reject) => {
                       raffle.once(raffle.filters.WinnerPicked, async function () {
                           console.log("Found the event!")
                           try {
@@ -191,10 +191,10 @@ import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers"
                                       BigInt(raffleEntranceFee)
                                   ).toString(),
                               )
+                              resolve()
                           } catch (error) {
                               reject(error)
                           }
-                          resolve("success")
                       })
                       const transaction = await raffle.performUpkeep("0x")
                       const transactionReceipt = await transaction.wait(1)

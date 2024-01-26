@@ -31,6 +31,11 @@ const config: HardhatUserConfig = {
             accounts: [SEPOLIA_PRIVATE_KEY],
         },
     },
+    etherscan: {
+        apiKey: {
+            sepolia: ETHERSCAN_API_KEY,
+        }
+    },
     gasReporter: {
         enabled: REPORT_GAS,
         currency: "USD",
