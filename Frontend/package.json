@@ -10,19 +10,21 @@
   },
   "dependencies": {
     "moralis": "^2.24.0",
+    "moralis-v1": "^1.11.0",
     "next": "14.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-moralis": "^1.4.2",
-    "moralis-v1": "^1.11.0",
-    "web3uikit": "^1.0.4",
-    "sass": "^1.70.0"
+    "sass": "^1.70.0",
+    "web3uikit": "^1.0.4"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "prettier": "^3.2.4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "url-loader": "^4.1.1"
   }
 }

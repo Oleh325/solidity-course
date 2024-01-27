@@ -3,18 +3,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 2px solid #6a6a6a;
 
     .app-title {
         font-family: var(--font-mono);
         font-size: 2rem;
         margin: 1rem;
         font-weight: 700;
+        color: #ffffff;
     }
 
     .network-info {
         width: 30%;
         display: flex;
         align-items: center;
+        color: #ffffff;
         gap: 0.4rem;
         font-size: 1.2rem;
         font-family: var(--font-mono);
@@ -36,8 +39,9 @@
             margin: 1rem;
             padding: 0.5rem 1rem;
             border-radius: 0.5rem;
-            border: 0.1rem solid #fff;
+            border: 0.1rem solid #6a6a6a;
             background-color: #000115;
+            color: #ffffff;
             cursor: pointer;
         }
         .connect-button:hover {
@@ -45,6 +49,10 @@
         }
         .connect-button:active {
             background-color: #000345;
+        }
+        .connect-button:disabled {
+            background-color: #2e2e2e;
+            cursor: not-allowed;
         }
     }
 }
