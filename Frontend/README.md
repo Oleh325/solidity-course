@@ -1,4 +1,4 @@
-<h1 align="center">FundMe</h1>
+<h1 align="center">smartRaffle</h1>
 
 <!-- TABLE OF CONTENTS -->
 <details>
