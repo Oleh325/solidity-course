@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import "../src/app/styles/raffle.scss"
 import { abi, contractAddresses } from "../constants"
 import { ethers } from "ethers"
+import { Bounce, ToastContainer, toast } from "react-toastify"
 
 interface RaffleProps {
     accounts: string[]
@@ -37,17 +38,56 @@ export default function Raffle(props: RaffleProps) {
     const [previousWinner, setPreviousWinner] = useState<string>("None")
     const [raffleCountdown, setRaffleCountdown] = useState<string>("00:00:00")
     const [hasEntered, setHasEntered] = useState<boolean>(false)
+    const [isEntering, setIsEntering] = useState<boolean>(false)
     let timeLeftFetched = 0
     let timeLeftInternal = 0
 
     const enterRaffle = async () => {
         try {
+            setIsEntering(true)
             const signer = await props.provider.getSigner()
             const contract = new ethers.Contract(raffleAddress!, abiEthers, signer)
             const entranceFee = await contract.getEntranceFee()
-            await contract.enterRaffle({ value: entranceFee })
+            const transactionResponse = await contract.enterRaffle({ value: entranceFee }).catch((error: any) => {
+                let message = ""
+                if (error.toString().includes("user rejected action")) {
+                    message = "Transaction rejected."
+                } else {
+                    message = "An error occured: " + error.toString()
+                }
+                toast(message, {
+                    position: "bottom-center",
+                    autoClose: 2000,
+                    type: "error",
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Bounce,
+                    containerId: "raffle",
+                })
+            })
+            await transactionResponse.wait(1).then(() => {
+                toast("Entered successfully!", {
+                    position: "bottom-center",
+                    autoClose: 2000,
+                    type: "success",
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Bounce,
+                    containerId: "raffle",
+                })
+            })
         } catch (error: any) {
             console.log(error)
+        } finally {
+            setIsEntering(false)
         }
     }
 
@@ -103,24 +143,27 @@ export default function Raffle(props: RaffleProps) {
     }, [])
 
     return (
-    <div className="raffle-container">
-        <div className="current-players-container">
-            <div className="current-players">Current players:</div>
-            <div className="current-players-number">{playersAmount}</div>
+    <>  
+        <div className="raffle-container">
+            <div className="current-players-container">
+                <div className="current-players">Current players:</div>
+                <div className="current-players-number">{playersAmount}</div>
+            </div>
+            <div className="prize-pool-container">
+                <div className="prize-pool">Prize pool:</div>
+                <div className="prize-pool-amount">{prizePool} ETH</div>
+            </div>
+            <div className="previous-winner-container">
+                <div className="previous-winner">Previous winner:</div>
+                <div className="previous-winner-address">{previousWinner}</div>
+            </div>
+            <div className="raffle-countdown-container">
+                <div className="raffle-countdown">Raffle ends in:</div>
+                <div className="raffle-countdown-time">{raffleCountdown}</div>
+            </div>
+            <button title={hasEntered ? "Already entered!" : ""} className="enter-raffle" onClick={() => enterRaffle()} disabled={hasEntered || isEntering}>Enter raffle</button>
         </div>
-        <div className="prize-pool-container">
-            <div className="prize-pool">Prize pool:</div>
-            <div className="prize-pool-amount">{prizePool} ETH</div>
-        </div>
-        <div className="previous-winner-container">
-            <div className="previous-winner">Previous winner:</div>
-            <div className="previous-winner-address">{previousWinner}</div>
-        </div>
-        <div className="raffle-countdown-container">
-            <div className="raffle-countdown">Raffle ends in:</div>
-            <div className="raffle-countdown-time">{raffleCountdown}</div>
-        </div>
-        <button title={hasEntered ? "Already entered!" : ""} className="enter-raffle" onClick={() => enterRaffle()} disabled={hasEntered}>Enter raffle</button>
-    </div>
+        <ToastContainer containerId="raffle" />
+    </>
     )
 }

@@ -67,8 +67,8 @@ To get a local copy up and running follow these simple example steps.
     ```env
     SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/example - optional
     LOCALHOST_RPC_URL=http://127.0.0.1:8545/
-    SEPOLIA_PRIVATE_KEY=0x000example000
-    ETHERSCAN_API_KEY=your_etherscan_api_key
+    SEPOLIA_PRIVATE_KEY=0x000example000 - optional
+    ETHERSCAN_API_KEY=your_etherscan_api_key - optional
     ```
 6. To compile the contract, run:
     ```sh
