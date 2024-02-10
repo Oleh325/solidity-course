@@ -1,12 +1,9 @@
 import "../src/app/styles/globals.scss"
 import type { AppProps } from "next/app"
-import { MoralisProvider } from "react-moralis"
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <MoralisProvider initializeOnMount={false}>
-            <Component {...pageProps} />
-        </MoralisProvider>
+        <Component {...pageProps} />
     )
 }
 

@@ -2,4 +2,19 @@
     height: 100vh;
     width: 100vw;
     background-color: #000115;
+
+    .no-wallet {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+        color: #ff0000;
+        font-family: var(--font-mono);
+        font-size: 2rem;
+
+        .no-wallet-text {
+            font-weight: 700;
+        }
+    }
 }

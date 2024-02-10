@@ -34,9 +34,12 @@ export interface RaffleInterface extends Interface {
       | "getNumWords"
       | "getNumberOfPlayers"
       | "getPlayer"
+      | "getPrizePool"
       | "getRaffleState"
       | "getRecentWinner"
       | "getRequestConfirmations"
+      | "getTimeLeft"
+      | "hasAlreadyEntered"
       | "performUpkeep"
       | "rawFulfillRandomWords"
   ): FunctionFragment;
@@ -81,6 +84,10 @@ export interface RaffleInterface extends Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "getPrizePool",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "getRaffleState",
     values?: undefined
   ): string;
@@ -91,6 +98,14 @@ export interface RaffleInterface extends Interface {
   encodeFunctionData(
     functionFragment: "getRequestConfirmations",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getTimeLeft",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "hasAlreadyEntered",
+    values: [AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "performUpkeep",
@@ -131,6 +146,10 @@ export interface RaffleInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "getPlayer", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "getPrizePool",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getRaffleState",
     data: BytesLike
   ): Result;
@@ -140,6 +159,14 @@ export interface RaffleInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getRequestConfirmations",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getTimeLeft",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "hasAlreadyEntered",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -251,11 +278,21 @@ export interface Raffle extends BaseContract {
 
   getPlayer: TypedContractMethod<[index: BigNumberish], [string], "view">;
 
+  getPrizePool: TypedContractMethod<[], [bigint], "view">;
+
   getRaffleState: TypedContractMethod<[], [bigint], "view">;
 
   getRecentWinner: TypedContractMethod<[], [string], "view">;
 
   getRequestConfirmations: TypedContractMethod<[], [bigint], "view">;
+
+  getTimeLeft: TypedContractMethod<[], [bigint], "view">;
+
+  hasAlreadyEntered: TypedContractMethod<
+    [playerAddress: AddressLike],
+    [boolean],
+    "view"
+  >;
 
   performUpkeep: TypedContractMethod<[arg0: BytesLike], [void], "nonpayable">;
 
@@ -298,6 +335,9 @@ export interface Raffle extends BaseContract {
     nameOrSignature: "getPlayer"
   ): TypedContractMethod<[index: BigNumberish], [string], "view">;
   getFunction(
+    nameOrSignature: "getPrizePool"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
     nameOrSignature: "getRaffleState"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
@@ -306,6 +346,12 @@ export interface Raffle extends BaseContract {
   getFunction(
     nameOrSignature: "getRequestConfirmations"
   ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "getTimeLeft"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "hasAlreadyEntered"
+  ): TypedContractMethod<[playerAddress: AddressLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "performUpkeep"
   ): TypedContractMethod<[arg0: BytesLike], [void], "nonpayable">;

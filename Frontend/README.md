@@ -27,7 +27,9 @@
 
 ## About The Project
 
-This is a frontend application to interact with deployed smart contracts. You can switch between local network and testnet by changing isLocalNetwork variable in "src/config.ts".
+This is a frontend application to interact with deployed Raffle contract. Address and ABI are stored in "constants/" folder. You can use either network to interact with the contract, but it needs to be deployed on that network first. After connecting Trust Wallet or Metamask you can enter the raffle.
+
+WalletConnect is disabled as it is not working properly on localhost. Therefore you should use Trust Wallet or Metamask.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -35,7 +37,7 @@ This is a frontend application to interact with deployed smart contracts. You ca
 
 - [![Sass][Sass-lang.com]][Sass-url]
 - [![Typescript][Typescriptlang.org]][Typescript-url]
-- [![React][React.js]][React-url]
+- [![Next][Nextjs]][Next-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -55,7 +57,6 @@ After deploying the contract, set up the frontend by following the steps below.
     ```sh
     yarn install
     ```
-3. Configure network (Sepolia or localhost) in "src/config.ts" file. If you want to use localhost, change isLocalNetwork variable to true.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -69,8 +70,7 @@ Run the frontend application by running the following command in the terminal:
 yarn start
 ```
 
-Visit "http://localhost:3000/" in your browser to interact with the contract. You can connect different accounts to the website, use fund and withdraw functions, and also check the contract's balance. To check the balance, you don't even need to connect an account.
-If there are any warnings or errors, they will be displayed below the input.
+Visit "http://localhost:3000/" in your browser to interact with the contract. After connecting, the information about the raffle will appear. You can enter the raffle by clicking "Enter Raffle" button. The raffle starts whenever there's at least one player. The winner is chosen randomly and receives the contract's balance.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -112,7 +112,7 @@ Please, check out <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/
 [Sass-url]: https://sass-lang.com/
 [Typescriptlang.org]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
 [Typescript-url]: https://www.typescriptlang.org/
-[React.js]: https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB
-[React-url]: https://react.dev/
+[Nextjs]: https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white
+[Next-url]: https://nextjs.org/
 [Hardhat-url]: https://hardhat.org/
 [Alchemy-url]: https://www.alchemy.com/

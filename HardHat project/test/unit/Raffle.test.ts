@@ -69,6 +69,13 @@ import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers"
                       "Raffle__NotOpen",
                   )
               })
+
+              it("returns true if the player already entered the raffle", async function () {
+                  await raffle.enterRaffle({ value: raffleEntranceFee })
+                  const address = await deployer.getAddress()
+                  const result = await raffle.hasAlreadyEntered(address)
+                  assert(result)
+              })
           })
 
           describe("checkUpkeep", function () {
@@ -173,7 +180,6 @@ import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers"
                       raffle.once(raffle.filters.WinnerPicked, async function () {
                           console.log("Found the event!")
                           try {
-                              const recentWinner = await raffle.getRecentWinner()
                               const raffleState = await raffle.getRaffleState()
                               const endingTimestamp = await raffle.getLatestTimestamp()
                               const numPlayers = await raffle.getNumberOfPlayers()

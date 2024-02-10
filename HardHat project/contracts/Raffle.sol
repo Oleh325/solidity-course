@@ -73,6 +73,9 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatible {
             revert Raffle__NotOpen();
         }
         s_players.push(payable(msg.sender));
+        if (s_players.length == 1) {
+            s_lastTimeStamp = block.timestamp;
+        }
         emit RaffleEnter(msg.sender);
     }
 
@@ -143,6 +146,16 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatible {
         emit WinnerPicked(recentWinner);
     }
 
+    function hasAlreadyEntered(address playerAddress) public view returns (bool) {
+        uint256 length = s_players.length;
+        for (uint256 i = 0; i < length; i++) {
+            if (s_players[i] == playerAddress) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // View / Pure functions
     function getEntranceFee() public view returns (uint256) {
         return i_entranceFee;
@@ -178,5 +191,16 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatible {
 
     function getInterval() public view returns (uint256) {
         return i_interval;
+    }
+
+    function getPrizePool() public view returns (uint256) {
+        return address(this).balance;
+    }
+
+    function getTimeLeft() public view returns (uint256) {
+        if (s_players.length == 0 || s_lastTimeStamp + i_interval < block.timestamp) {
+            return 0;
+        }
+        return (s_lastTimeStamp + i_interval) - block.timestamp;
     }
 }

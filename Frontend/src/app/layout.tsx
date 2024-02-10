@@ -5,7 +5,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <>
             <Head>
                 <title>smartRaffle</title>
-                <meta name="description" content="smartRaffle Application" />
+                <meta name="smartRaffle" content="smartRaffle Application" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             {children}

@@ -9,12 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "moralis": "^2.24.0",
+    "@metamask/sdk-react": "^0.14.2",
+    "@walletconnect/modal": "^2.6.2",
+    "ethers": "^6.10.0",
+    "magic-sdk": "^22.0.0",
     "moralis-v1": "^1.11.0",
     "next": "14.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-moralis": "^1.4.2",
+    "react-toastify": "^10.0.4",
     "sass": "^1.70.0",
     "web3uikit": "^1.0.4"
   },

@@ -54,5 +54,16 @@
             background-color: #2e2e2e;
             cursor: not-allowed;
         }
+        .connected-text {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: #ffffff;
+        }
+        .connected-account {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: #ffffff;
+            cursor: pointer;
+        }
     }
 }

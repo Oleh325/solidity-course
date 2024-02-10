@@ -4,6 +4,7 @@
     position: absolute;
     top: 0;
     background-color: rgba(0, 1, 21, 0.5);
+    backdrop-filter: blur(0.3rem);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,7 +59,7 @@
                 align-items: center;
                 justify-content: center;
                 gap: 2rem;
-                width: 33%;
+                width: 33.33%;
                 height: 100%;
                 font-family: var(--font-mono);
                 font-size: 1.8rem;
@@ -73,6 +74,10 @@
             }
             button:active {
                 background-color: #2e2e2e;
+            }
+            button:disabled {
+                background-color: #161616;
+                cursor: not-allowed;
             }
             .option-metamask {
                 border-radius: 0 0 0 1.5rem;
