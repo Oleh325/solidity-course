@@ -7,7 +7,6 @@ interface HeaderProps {
     isAuthenticating: boolean
     setIsAuthenticating: Dispatch<SetStateAction<boolean>>
     accounts: string[]
-    walletType: string
     network: string
 }
 

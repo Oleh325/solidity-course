@@ -24,7 +24,6 @@ export default function Index() {
     }
     const [isAuthenticating, setIsAuthenticating] = useState(false)
     const [accounts, setAccounts] = useState<string[]>([])
-    const [walletType, setWalletType] = useState<string>("")
     const [network, setNetwork] = useState("None")
     const [chainId, setChainId] = useState<number>(0)
     const [provider, setProvider] = useState<any>(null)
@@ -53,7 +52,6 @@ export default function Index() {
         if (window.ethereum && isMetamask) {
             const retreivedAccounts: string[] = await retreiveAccounts(window.ethereum) || []
             if(retreivedAccounts.length > 0) {
-                setWalletType("metamask")
                 setAccounts(retreivedAccounts)
                 const provider = new ethers.BrowserProvider(window.ethereum)
                 const chainId = Number((await provider.getNetwork()).chainId)
@@ -64,69 +62,52 @@ export default function Index() {
                     setNetwork(network)
                 }
                 setChainId(chainId)
-                setProvider(provider)
                 return
+            }
+        }
+        if (accounts.length === 0) {
+            if (window.ethereum?.providers) {
+                const provider = window.ethereum.providers.find(isTrustWallet) ?? null
+                const retreivedAccounts: string[] = await retreiveAccounts(provider) || []
+                if (retreivedAccounts) {
+                    if (retreivedAccounts.length > 0) {
+                        setAccounts(retreivedAccounts)
+                        const chainId = Number((await new ethers.BrowserProvider(provider).getNetwork()).chainId)
+                        if (chainId === 31337) {
+                            setNetwork("localhost")
+                        } else {
+                            const network = (await new ethers.BrowserProvider(provider).getNetwork()).name
+                            setNetwork(network)
+                        }
+                        setChainId(chainId)
+                        return
+                    }
+                }
             } else {
-                setWalletType("")
-            }
-        }
-        if (window.ethereum?.providers) {
-            const provider = window.ethereum.providers.find(isTrustWallet) ?? null
-            const retreivedAccounts: string[] = await retreiveAccounts(provider) || []
-            if (retreivedAccounts) {
-                if (retreivedAccounts.length > 0) {
-                    setWalletType("trustwallet")
-                    setAccounts(retreivedAccounts)
-                    const chainId = Number((await new ethers.BrowserProvider(provider).getNetwork()).chainId)
-                    if (chainId === 31337) {
-                        setNetwork("localhost")
-                    } else {
-                        const network = (await new ethers.BrowserProvider(provider).getNetwork()).name
-                        setNetwork(network)
+                const provider = window["trustwallet"]
+                const retreivedAccounts: string[] = await retreiveAccounts(provider) || []
+                if (retreivedAccounts) {
+                    if (retreivedAccounts.length > 0) {
+                        setAccounts(retreivedAccounts)
+                        const chainId = Number((await new ethers.BrowserProvider(provider).getNetwork()).chainId)
+                        if (chainId === 31337) {
+                            setNetwork("localhost")
+                        } else {
+                            const network = (await new ethers.BrowserProvider(provider).getNetwork()).name
+                            setNetwork(network)
+                        }
+                        setChainId(chainId)
+                        return
                     }
-                    setChainId(chainId)
-                    setProvider(provider)
-                    return
-                } else {
-                    setWalletType("")
-                }
-            }
-        } else {
-            const provider = window["trustwallet"]
-            const retreivedAccounts: string[] = await retreiveAccounts(provider) || []
-            if (retreivedAccounts) {
-                if (retreivedAccounts.length > 0) {
-                    setWalletType("trustwallet")
-                    setAccounts(retreivedAccounts)
-                    const chainId = Number((await new ethers.BrowserProvider(provider).getNetwork()).chainId)
-                    if (chainId === 31337) {
-                        setNetwork("localhost")
-                    } else {
-                        const network = (await new ethers.BrowserProvider(provider).getNetwork()).name
-                        setNetwork(network)
-                    }
-                    setChainId(chainId)
-                    setProvider(provider)
-                    return
-                } else {
-                    setWalletType("")
                 }
             }
         }
 
-
-        if (walletType === "") {
+        if (accounts.length === 0) {
             try {
-                const provider = await EthereumProvider.init({
-                    projectId: process.env.NEXT_PUBLIC_PROJECT_ID!,
-                    showQrModal: true,
-                    optionalChains: [1, 5, 31337, 11155111]
-                })
-                await provider.enable()
                 const retreivedAccounts: any = await retreiveAccounts(provider) || []
                 if (retreivedAccounts) {
                     if (retreivedAccounts.length > 0) {
-                        setWalletType("walletconnect")
                         setAccounts(retreivedAccounts)
                         const chainId = Number((await new ethers.BrowserProvider(provider).getNetwork()).chainId)
                         if (chainId === 31337) {
@@ -138,8 +119,6 @@ export default function Index() {
                         setChainId(chainId)
                         setProvider(provider)
                         return
-                    } else {
-                        setWalletType("")
                     }
                 }
             } catch (error: any) {
@@ -147,7 +126,7 @@ export default function Index() {
             }
         }
 
-        if (walletType === "") {
+        if (accounts.length === 0) {
             setAccounts([])
             setNetwork("None")
             setProvider(null)
@@ -174,13 +153,12 @@ export default function Index() {
                         isAuthenticating={isAuthenticating}
                         setIsAuthenticating={setIsAuthenticating}
                         accounts={accounts}
-                        walletType={walletType}
                         network={network}
                     />
                     <Raffle accounts={accounts} provider={provider} chainId={chainId} />
                 </div>
             </div>
-            {isAuthenticating && <Auth setIsAuthenticating={setIsAuthenticating} setAccounts={setAccounts} setWalletType={setWalletType} />}
+            {isAuthenticating && <Auth setIsAuthenticating={setIsAuthenticating} setAccounts={setAccounts} setProvider={setProvider} />}
         </>
     )
 }
