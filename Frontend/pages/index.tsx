@@ -122,6 +122,7 @@ export default function Index() {
                     showQrModal: true,
                     optionalChains: [1, 5, 31337, 11155111]
                 })
+                await provider.enable()
                 const retreivedAccounts: any = await retreiveAccounts(provider) || []
                 if (retreivedAccounts) {
                     if (retreivedAccounts.length > 0) {
