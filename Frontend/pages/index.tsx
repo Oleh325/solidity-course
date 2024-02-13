@@ -116,9 +116,10 @@ export default function Index() {
                 })
                 console.log("Trying WalletConnect... in index.js with provider: ")
                 console.log(provider2)
+                const accounts: any = await provider2.request({ method: 'eth_requestAccounts' })
                 const retreivedAccounts: any = await retreiveAccounts(provider2) || []
                 console.log("After retreiving accounts... in index.js")
-                console.log(retreivedAccounts)
+                console.log(accounts)
                 if (retreivedAccounts) {
                     if (retreivedAccounts.length > 0) {
                         setAccounts(retreivedAccounts)
