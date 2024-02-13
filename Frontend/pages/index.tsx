@@ -4,6 +4,7 @@ import Auth from "../containers/Auth"
 import { useEffect, useState } from "react"
 import { ethers } from "ethers"
 import Raffle from "../containers/Raffle"
+import { EthereumProvider } from '@walletconnect/ethereum-provider'
 
 export default function Index() {
     if (typeof(window) !== "undefined") {
@@ -113,7 +114,37 @@ export default function Index() {
             }
         }
 
-        // WalletConnect
+
+        if (walletType === "") {
+            try {
+                const provider = await EthereumProvider.init({
+                    projectId: process.env.NEXT_PUBLIC_PROJECT_ID!,
+                    showQrModal: true,
+                    optionalChains: [1, 5, 31337, 11155111]
+                })
+                const retreivedAccounts: any = await retreiveAccounts(provider) || []
+                if (retreivedAccounts) {
+                    if (retreivedAccounts.length > 0) {
+                        setWalletType("walletconnect")
+                        setAccounts(retreivedAccounts)
+                        const chainId = Number((await new ethers.BrowserProvider(provider).getNetwork()).chainId)
+                        if (chainId === 31337) {
+                            setNetwork("localhost")
+                        } else {
+                            const network = (await new ethers.BrowserProvider(provider).getNetwork()).name
+                            setNetwork(network)
+                        }
+                        setChainId(chainId)
+                        setProvider(provider)
+                        return
+                    } else {
+                        setWalletType("")
+                    }
+                }
+            } catch (error: any) {
+                console.log(error)
+            }
+        }
 
         if (walletType === "") {
             setAccounts([])

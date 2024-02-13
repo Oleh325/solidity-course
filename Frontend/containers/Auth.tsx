@@ -6,6 +6,7 @@ import Image from "next/image"
 import { Dispatch, SetStateAction, useState } from "react"
 import { Bounce, ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { EthereumProvider } from '@walletconnect/ethereum-provider'
 
 interface AuthProps {
     setIsAuthenticating: Dispatch<SetStateAction<boolean>>
@@ -36,7 +37,14 @@ export default function Auth(props: AuthProps) {
                     throw new Error("Trust Wallet not detected.")
                 }
             } else if (desiredProvider === "walletconnect") {
-                // WalletConnect doesn't work with HTTP
+                const provider = await EthereumProvider.init({
+                    projectId: process.env.NEXT_PUBLIC_PROJECT_ID!,
+                    showQrModal: true,
+                    optionalChains: [1, 5, 31337, 11155111]
+                })
+                await provider.connect()
+                const accounts: any = await provider.request({ method: 'eth_requestAccounts' })
+                props.setAccounts(accounts)  
                 props.setIsAuthenticating(false)
             }
         } catch (error: any) {
@@ -163,7 +171,7 @@ export default function Auth(props: AuthProps) {
                     <button
                         className="option-walletconnect"
                         onClick={() => connectToWallet("walletconnect")}
-                        disabled={isAuthenticatingInternal || true}
+                        disabled={isAuthenticatingInternal}
                     >
                         <Image priority src={walletConnectLogo} alt="" />
                         <div className="option-text">Wallet Connect</div>
