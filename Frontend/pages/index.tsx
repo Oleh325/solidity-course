@@ -41,6 +41,7 @@ export default function Index() {
             if (provider) {
                 console.log("-----IN RETREIVE-----")
                 console.log("Ok we got provider...")
+                console.log(provider)
                 const retreivedAccounts: string[] = await provider.request({ method: 'eth_accounts' })
                 console.log("After retreiving accounts...")
                 console.log(retreivedAccounts)
