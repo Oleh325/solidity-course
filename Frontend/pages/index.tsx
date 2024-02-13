@@ -142,7 +142,7 @@ export default function Index() {
         if (accounts.length === 0) {
             setAccounts([])
             setNetwork("None")
-            setProvider(null)
+            // setProvider(null)
             setChainId(0)
         }
     }
