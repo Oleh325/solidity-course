@@ -39,8 +39,15 @@ export default function Index() {
 
         const retreiveAccounts = async (provider: any) => {
             if (provider) {
+                console.log("-----IN RETREIVE-----")
+                console.log("Ok we got provider...")
                 const retreivedAccounts: string[] = await provider.request({ method: 'eth_accounts' })
+                console.log("After retreiving accounts...")
+                console.log(retreivedAccounts)
                 const permissions = await provider.request({ method: 'wallet_getPermissions' })
+                console.log("After retreiving permissions...")
+                console.log(permissions)
+                console.log("-----RETREIVE END-----")
                 if (permissions[0] !== undefined) {
                     return retreivedAccounts
                 } else {
@@ -108,7 +115,10 @@ export default function Index() {
 
         if (accounts.length === 0) {
             try {
+                console.log("Trying WalletConnect... in index.js")
                 const retreivedAccounts: any = await retreiveAccounts(provider) || []
+                console.log("After retreiving accounts... in index.js")
+                console.log(retreivedAccounts)
                 if (retreivedAccounts) {
                     if (retreivedAccounts.length > 0) {
                         setAccounts(retreivedAccounts)

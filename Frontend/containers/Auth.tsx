@@ -45,6 +45,10 @@ export default function Auth(props: AuthProps) {
                 await provider.connect()
                 const accounts: any = await provider.request({ method: 'eth_requestAccounts' })
                 props.setAccounts(accounts)  
+                console.log("------WALLETCONNECT PROVIDER------")
+                console.log("Got walletconnect provider: ")
+                console.log(provider)
+                console.log("------END OF WALLETCONNECT PROVIDER------")
                 props.setProvider(provider)
                 props.setIsAuthenticating(false)
             }
