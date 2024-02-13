@@ -1,4 +1,4 @@
-<h1 align="center">FundMe</h1>
+<h1 align="center">smartRaffle</h1>
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -27,7 +27,7 @@
 
 ## About The Project
 
-This is a sample "FundMe" crowdfunding project on Solidity, that was created by following the course "Learn Blockchain, Solidity, and Full Stack Web3 Development with JavaScript – 32-Hour Course" from freeCodeCamp at YouTube. The project is written using HardHat Ethereum development environment. The contract can be deployed to Sepolia Testnet or Localhost. The contract is being automatically verified on Sepolia Etherscan. Everything is covered with tests.
+This is a sample "smartRaffle" lottery project on Solidity, that was created by following the course "Learn Blockchain, Solidity, and Full Stack Web3 Development with JavaScript – 32-Hour Course" from freeCodeCamp at YouTube. The project is written using HardHat Ethereum development environment, and utilizes Chainlink VFR and Chainlink Automation to get truly random numbers for the lottery and to automate the lottery drawing process. You can run tests locally or on Testnet. The project also includes a simple frontend that can be used to interact with the contract.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -37,6 +37,7 @@ This is a sample "FundMe" crowdfunding project on Solidity, that was created by 
 -   [![Typescript][Typescriptlang.org]][Typescript-url]
 -   [![Solidity][Soliditylang.org]][Solidity-url]
 -   [<img src="https://i.ibb.co/vmt4rKJ/badge.jpg" alt="Hardhat logo" style="height: 25px; width:97px;"/>][Hardhat-url]
+-   [![Chainlink][Chain.link]][Chainlink-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -66,14 +67,15 @@ To get a local copy up and running follow these simple example steps.
     ```env
     SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/example - optional
     LOCALHOST_RPC_URL=http://127.0.0.1:8545/
-    SEPOLIA_PRIVATE_KEY=0x000example000
-    ETHERSCAN_API_KEY=your_etherscan_api_key
+    SEPOLIA_PRIVATE_KEY=0x000example000 - optional
+    ETHERSCAN_API_KEY=your_etherscan_api_key - optional
     ```
 6. To compile the contract, run:
     ```sh
     yarn hardhat compile
     ```
     This will create an "artifacts" folder with the compiled contract and typechain files.
+7. **(OPTIONAL)** If you want to deploy the contract to Sepolia Testnet, you need to register an VRF subscription and an Upkeep at https://vrf.chain.link/ and https://automation.chain.link/ respectively. Don't forget to update all the values at "helper-hardhat-config.json".
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -88,7 +90,7 @@ yarn test
 
 To run tests on Sepolia, run:
 ```sh
-yarn test staging
+yarn test --network sepolia
 ```
 
 For deploying on Sepolia Testnet, run:
@@ -103,23 +105,12 @@ To deploy the contract to Localhost, run:
 ```sh
 yarn hardhat node
 ```
-and in another terminal window run:
+To manually choose the winner (we have to mock the Automation), run:
 ```sh
-yarn hardhat deploy
+hh run scripts/mockOffchain.ts
 ```
 
-All the info about the deployed contract will be displayed in the terminal window running the node. The contract address file is generated and saved to "deployments/sepolia" folder for staging tests. The contract address and ABI files are generated and saved to "Frontend/public" folder for testing frontend with Testnet or locally.
-
-To interact with the contract, run:
-```sh
-yarn hardhat run scripts/fund.ts
-```
-for funding the contract, or:
-```sh
-yarn hardhat run scripts/withdraw.ts
-```
-for withdrawing the funds from the contract.
-
+All the info about the deployed contract will be displayed in the terminal window running the node. The contract address and ABI files are generated and saved to "Frontend/constants" folder for testing frontend with Testnet or locally.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -162,5 +153,7 @@ Please, check out <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/
 [Typescript-url]: https://www.typescriptlang.org/
 [Soliditylang.org]: https://img.shields.io/badge/Solidity-e6e6e6?style=for-the-badge&logo=solidity&logoColor=black
 [Solidity-url]: https://soliditylang.org/
+[Chain.link]: https://img.shields.io/badge/Chainlink-375BD2?style=for-the-badge&logo=Chainlink&logoColor=white
+[Chainlink-url]: https://chain.link/
 [Hardhat-url]: https://hardhat.org/
 [Alchemy-url]: https://www.alchemy.com/

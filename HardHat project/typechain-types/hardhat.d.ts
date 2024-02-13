@@ -14,116 +14,206 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
-      name: "AggregatorInterface",
+      name: "AutomationBase",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.AggregatorInterface__factory>;
+    ): Promise<Contracts.AutomationBase__factory>;
     getContractFactory(
-      name: "AggregatorV2V3Interface",
+      name: "AutomationCompatible",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.AggregatorV2V3Interface__factory>;
+    ): Promise<Contracts.AutomationCompatible__factory>;
     getContractFactory(
-      name: "AggregatorV3Interface",
+      name: "AutomationCompatibleInterface",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.AggregatorV3Interface__factory>;
+    ): Promise<Contracts.AutomationCompatibleInterface__factory>;
     getContractFactory(
-      name: "MockV3Aggregator",
+      name: "VRFCoordinatorV2Interface",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MockV3Aggregator__factory>;
+    ): Promise<Contracts.VRFCoordinatorV2Interface__factory>;
     getContractFactory(
-      name: "AggregatorV3Interface",
+      name: "VRFCoordinatorV2Mock",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.AggregatorV3Interface__factory>;
+    ): Promise<Contracts.VRFCoordinatorV2Mock__factory>;
     getContractFactory(
-      name: "FundMe",
+      name: "ConfirmedOwner",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.FundMe__factory>;
+    ): Promise<Contracts.ConfirmedOwner__factory>;
+    getContractFactory(
+      name: "ConfirmedOwnerWithProposal",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ConfirmedOwnerWithProposal__factory>;
+    getContractFactory(
+      name: "IOwnable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IOwnable__factory>;
+    getContractFactory(
+      name: "LinkTokenInterface",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.LinkTokenInterface__factory>;
+    getContractFactory(
+      name: "VRFConsumerBaseV2",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.VRFConsumerBaseV2__factory>;
+    getContractFactory(
+      name: "Raffle",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Raffle__factory>;
 
     getContractAt(
-      name: "AggregatorInterface",
+      name: "AutomationBase",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.AggregatorInterface>;
+    ): Promise<Contracts.AutomationBase>;
     getContractAt(
-      name: "AggregatorV2V3Interface",
+      name: "AutomationCompatible",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.AggregatorV2V3Interface>;
+    ): Promise<Contracts.AutomationCompatible>;
     getContractAt(
-      name: "AggregatorV3Interface",
+      name: "AutomationCompatibleInterface",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.AggregatorV3Interface>;
+    ): Promise<Contracts.AutomationCompatibleInterface>;
     getContractAt(
-      name: "MockV3Aggregator",
+      name: "VRFCoordinatorV2Interface",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.MockV3Aggregator>;
+    ): Promise<Contracts.VRFCoordinatorV2Interface>;
     getContractAt(
-      name: "AggregatorV3Interface",
+      name: "VRFCoordinatorV2Mock",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.AggregatorV3Interface>;
+    ): Promise<Contracts.VRFCoordinatorV2Mock>;
     getContractAt(
-      name: "FundMe",
+      name: "ConfirmedOwner",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.FundMe>;
+    ): Promise<Contracts.ConfirmedOwner>;
+    getContractAt(
+      name: "ConfirmedOwnerWithProposal",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
+    getContractAt(
+      name: "IOwnable",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IOwnable>;
+    getContractAt(
+      name: "LinkTokenInterface",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.LinkTokenInterface>;
+    getContractAt(
+      name: "VRFConsumerBaseV2",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.VRFConsumerBaseV2>;
+    getContractAt(
+      name: "Raffle",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Raffle>;
 
     deployContract(
-      name: "AggregatorInterface",
+      name: "AutomationBase",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AggregatorInterface>;
+    ): Promise<Contracts.AutomationBase>;
     deployContract(
-      name: "AggregatorV2V3Interface",
+      name: "AutomationCompatible",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AggregatorV2V3Interface>;
+    ): Promise<Contracts.AutomationCompatible>;
     deployContract(
-      name: "AggregatorV3Interface",
+      name: "AutomationCompatibleInterface",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AggregatorV3Interface>;
+    ): Promise<Contracts.AutomationCompatibleInterface>;
     deployContract(
-      name: "MockV3Aggregator",
+      name: "VRFCoordinatorV2Interface",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.MockV3Aggregator>;
+    ): Promise<Contracts.VRFCoordinatorV2Interface>;
     deployContract(
-      name: "AggregatorV3Interface",
+      name: "VRFCoordinatorV2Mock",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AggregatorV3Interface>;
+    ): Promise<Contracts.VRFCoordinatorV2Mock>;
     deployContract(
-      name: "FundMe",
+      name: "ConfirmedOwner",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.FundMe>;
+    ): Promise<Contracts.ConfirmedOwner>;
+    deployContract(
+      name: "ConfirmedOwnerWithProposal",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
+    deployContract(
+      name: "IOwnable",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IOwnable>;
+    deployContract(
+      name: "LinkTokenInterface",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.LinkTokenInterface>;
+    deployContract(
+      name: "VRFConsumerBaseV2",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.VRFConsumerBaseV2>;
+    deployContract(
+      name: "Raffle",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Raffle>;
 
     deployContract(
-      name: "AggregatorInterface",
+      name: "AutomationBase",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AggregatorInterface>;
+    ): Promise<Contracts.AutomationBase>;
     deployContract(
-      name: "AggregatorV2V3Interface",
+      name: "AutomationCompatible",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AggregatorV2V3Interface>;
+    ): Promise<Contracts.AutomationCompatible>;
     deployContract(
-      name: "AggregatorV3Interface",
+      name: "AutomationCompatibleInterface",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AggregatorV3Interface>;
+    ): Promise<Contracts.AutomationCompatibleInterface>;
     deployContract(
-      name: "MockV3Aggregator",
+      name: "VRFCoordinatorV2Interface",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.MockV3Aggregator>;
+    ): Promise<Contracts.VRFCoordinatorV2Interface>;
     deployContract(
-      name: "AggregatorV3Interface",
+      name: "VRFCoordinatorV2Mock",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AggregatorV3Interface>;
+    ): Promise<Contracts.VRFCoordinatorV2Mock>;
     deployContract(
-      name: "FundMe",
+      name: "ConfirmedOwner",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.FundMe>;
+    ): Promise<Contracts.ConfirmedOwner>;
+    deployContract(
+      name: "ConfirmedOwnerWithProposal",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
+    deployContract(
+      name: "IOwnable",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IOwnable>;
+    deployContract(
+      name: "LinkTokenInterface",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.LinkTokenInterface>;
+    deployContract(
+      name: "VRFConsumerBaseV2",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.VRFConsumerBaseV2>;
+    deployContract(
+      name: "Raffle",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Raffle>;
 
     // default types
     getContractFactory(
