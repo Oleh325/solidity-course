@@ -41,7 +41,6 @@ export default function Index() {
             if (provider) {
                 console.log("-----IN RETREIVE-----")
                 console.log("Ok we got provider...")
-                console.log(provider)
                 const retreivedAccounts: string[] = await provider.request({ method: 'eth_accounts' })
                 console.log("After retreiving accounts...")
                 console.log(retreivedAccounts)
@@ -116,7 +115,8 @@ export default function Index() {
 
         if (accounts.length === 0) {
             try {
-                console.log("Trying WalletConnect... in index.js")
+                console.log("Trying WalletConnect... in index.js with provider:")
+                console.log(provider)
                 const retreivedAccounts: any = await retreiveAccounts(provider) || []
                 console.log("After retreiving accounts... in index.js")
                 console.log(retreivedAccounts)
@@ -142,7 +142,6 @@ export default function Index() {
         if (accounts.length === 0) {
             setAccounts([])
             setNetwork("None")
-            // setProvider(null)
             setChainId(0)
         }
     }
