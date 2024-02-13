@@ -122,11 +122,9 @@ export default function Index() {
                     showQrModal: true,
                     optionalChains: [1, 5, 31337, 11155111]
                 })
-                const accounts: any = await provider2.request({ method: 'eth_accounts' })
                 console.log("Got walletconnect provider: ")
                 console.log(provider2)
-                console.log(accounts)
-                const retreivedAccounts: any = await retreiveAccounts(provider) || []
+                const retreivedAccounts: any = await retreiveAccounts(provider2) || []
                 console.log("After retreiving accounts... in index.js")
                 console.log(retreivedAccounts)
                 if (retreivedAccounts) {
