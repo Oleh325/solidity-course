@@ -11,7 +11,6 @@ import { EthereumProvider } from '@walletconnect/ethereum-provider'
 interface AuthProps {
     setIsAuthenticating: Dispatch<SetStateAction<boolean>>
     setAccounts: Dispatch<SetStateAction<string[]>>
-    setProvider: Dispatch<SetStateAction<any>>
 }
 
 export default function Auth(props: AuthProps) {
@@ -25,7 +24,6 @@ export default function Auth(props: AuthProps) {
                 if (window.ethereum && isMetamask) {
                     const accounts: string[] = await window.ethereum.request({ method: 'eth_requestAccounts' }) as string[]
                     props.setAccounts(accounts)
-                    props.setProvider(window.ethereum)
                     props.setIsAuthenticating(false)
                 }
             } else if (desiredProvider === "trustwallet") {
@@ -33,7 +31,6 @@ export default function Auth(props: AuthProps) {
                 if (provider) {
                     const accounts = await provider.request({ method: 'eth_requestAccounts' })
                     props.setAccounts(accounts)
-                    props.setProvider(provider)
                     props.setIsAuthenticating(false)
                 } else {
                     throw new Error("Trust Wallet not detected.")
@@ -47,7 +44,6 @@ export default function Auth(props: AuthProps) {
                 await provider.connect()
                 const accounts: any = await provider.request({ method: 'eth_requestAccounts' })
                 props.setAccounts(accounts)  
-                props.setProvider(provider)
                 props.setIsAuthenticating(false)
             }
         } catch (error: any) {

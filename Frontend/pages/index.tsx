@@ -62,6 +62,7 @@ export default function Index() {
                     setNetwork(network)
                 }
                 setChainId(chainId)
+                setProvider(provider)
                 return
             }
         }
@@ -80,6 +81,7 @@ export default function Index() {
                             setNetwork(network)
                         }
                         setChainId(chainId)
+                        setProvider(provider)
                         return
                     }
                 }
@@ -97,6 +99,7 @@ export default function Index() {
                             setNetwork(network)
                         }
                         setChainId(chainId)
+                        setProvider(provider)
                         return
                     }
                 }
@@ -158,7 +161,7 @@ export default function Index() {
                     <Raffle accounts={accounts} provider={provider} chainId={chainId} />
                 </div>
             </div>
-            {isAuthenticating && <Auth setIsAuthenticating={setIsAuthenticating} setAccounts={setAccounts} setProvider={setProvider} />}
+            {isAuthenticating && <Auth setIsAuthenticating={setIsAuthenticating} setAccounts={setAccounts} />}
         </>
     )
 }
