@@ -117,6 +117,15 @@ export default function Index() {
             try {
                 console.log("Trying WalletConnect... in index.js with provider:")
                 console.log(provider)
+                const provider2 = await EthereumProvider.init({
+                    projectId: process.env.NEXT_PUBLIC_PROJECT_ID!,
+                    showQrModal: true,
+                    optionalChains: [1, 5, 31337, 11155111]
+                })
+                const accounts: any = await provider2.request({ method: 'eth_accounts' })
+                console.log("Got walletconnect provider: ")
+                console.log(provider2)
+                console.log(accounts)
                 const retreivedAccounts: any = await retreiveAccounts(provider) || []
                 console.log("After retreiving accounts... in index.js")
                 console.log(retreivedAccounts)
