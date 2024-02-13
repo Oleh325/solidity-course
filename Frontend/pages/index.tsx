@@ -108,18 +108,12 @@ export default function Index() {
 
         if (accounts.length === 0) {
             try {
-                console.log("Trying WalletConnect... in index.js with provider: ")
-                const provider2 = await EthereumProvider.init({
+                const provider = await EthereumProvider.init({
                     projectId: process.env.NEXT_PUBLIC_PROJECT_ID!,
                     showQrModal: true,
                     optionalChains: [1, 5, 31337, 11155111]
                 })
-                console.log("Trying WalletConnect... in index.js with provider: ")
-                console.log(provider2)
-                const accounts: any = await provider2.request({ method: 'eth_requestAccounts' })
-                const retreivedAccounts: any = await retreiveAccounts(provider2) || []
-                console.log("After retreiving accounts... in index.js")
-                console.log(accounts)
+                const retreivedAccounts: any = await provider.request({ method: 'eth_requestAccounts' }) || []
                 if (retreivedAccounts) {
                     if (retreivedAccounts.length > 0) {
                         setAccounts(retreivedAccounts)
@@ -131,6 +125,7 @@ export default function Index() {
                             setNetwork(network)
                         }
                         setChainId(chainId)
+                        setProvider(provider)
                         return
                     }
                 }
