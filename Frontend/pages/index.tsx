@@ -106,37 +106,38 @@ export default function Index() {
             }
         }
 
-        if (accounts.length === 0) {
-            try {
-                const provider = await EthereumProvider.init({
-                    projectId: process.env.NEXT_PUBLIC_PROJECT_ID!,
-                    showQrModal: true,
-                    optionalChains: [1, 5, 31337, 11155111]
-                })
-                const retreivedAccounts: any = await provider.request({ method: 'eth_requestAccounts' }) || []
-                if (retreivedAccounts) {
-                    if (retreivedAccounts.length > 0) {
-                        setAccounts(retreivedAccounts)
-                        const chainId = Number((await new ethers.BrowserProvider(provider).getNetwork()).chainId)
-                        if (chainId === 31337) {
-                            setNetwork("localhost")
-                        } else {
-                            const network = (await new ethers.BrowserProvider(provider).getNetwork()).name
-                            setNetwork(network)
-                        }
-                        setChainId(chainId)
-                        setProvider(provider)
-                        return
-                    }
-                }
-            } catch (error: any) {
-                console.log(error)
-            }
-        }
+        // if (accounts.length === 0) {
+        //     try {
+        //         const provider = await EthereumProvider.init({
+        //             projectId: process.env.NEXT_PUBLIC_PROJECT_ID!,
+        //             showQrModal: true,
+        //             optionalChains: [1, 5, 31337, 11155111]
+        //         })
+        //         const retreivedAccounts: any = await provider.request({ method: 'eth_requestAccounts' }) || []
+        //         if (retreivedAccounts) {
+        //             if (retreivedAccounts.length > 0) {
+        //                 setAccounts(retreivedAccounts)
+        //                 const chainId = Number((await new ethers.BrowserProvider(provider).getNetwork()).chainId)
+        //                 if (chainId === 31337) {
+        //                     setNetwork("localhost")
+        //                 } else {
+        //                     const network = (await new ethers.BrowserProvider(provider).getNetwork()).name
+        //                     setNetwork(network)
+        //                 }
+        //                 setChainId(chainId)
+        //                 setProvider(provider)
+        //                 return
+        //             }
+        //         }
+        //     } catch (error: any) {
+        //         console.log(error)
+        //     }
+        // }
 
         if (accounts.length === 0) {
             setAccounts([])
             setNetwork("None")
+            setProvider(null)
             setChainId(0)
         }
     }
