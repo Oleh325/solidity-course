@@ -14,206 +14,98 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
-      name: "AutomationBase",
+      name: "ILendingPoolAddressesProvider",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.AutomationBase__factory>;
+    ): Promise<Contracts.ILendingPoolAddressesProvider__factory>;
     getContractFactory(
-      name: "AutomationCompatible",
+      name: "AggregatorV3Interface",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.AutomationCompatible__factory>;
+    ): Promise<Contracts.AggregatorV3Interface__factory>;
     getContractFactory(
-      name: "AutomationCompatibleInterface",
+      name: "IERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.AutomationCompatibleInterface__factory>;
+    ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
-      name: "VRFCoordinatorV2Interface",
+      name: "ILendingPool",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.VRFCoordinatorV2Interface__factory>;
+    ): Promise<Contracts.ILendingPool__factory>;
     getContractFactory(
-      name: "VRFCoordinatorV2Mock",
+      name: "IWeth",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.VRFCoordinatorV2Mock__factory>;
-    getContractFactory(
-      name: "ConfirmedOwner",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ConfirmedOwner__factory>;
-    getContractFactory(
-      name: "ConfirmedOwnerWithProposal",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ConfirmedOwnerWithProposal__factory>;
-    getContractFactory(
-      name: "IOwnable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IOwnable__factory>;
-    getContractFactory(
-      name: "LinkTokenInterface",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.LinkTokenInterface__factory>;
-    getContractFactory(
-      name: "VRFConsumerBaseV2",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.VRFConsumerBaseV2__factory>;
-    getContractFactory(
-      name: "Raffle",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Raffle__factory>;
+    ): Promise<Contracts.IWeth__factory>;
 
     getContractAt(
-      name: "AutomationBase",
+      name: "ILendingPoolAddressesProvider",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.AutomationBase>;
+    ): Promise<Contracts.ILendingPoolAddressesProvider>;
     getContractAt(
-      name: "AutomationCompatible",
+      name: "AggregatorV3Interface",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.AutomationCompatible>;
+    ): Promise<Contracts.AggregatorV3Interface>;
     getContractAt(
-      name: "AutomationCompatibleInterface",
+      name: "IERC20",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.AutomationCompatibleInterface>;
+    ): Promise<Contracts.IERC20>;
     getContractAt(
-      name: "VRFCoordinatorV2Interface",
+      name: "ILendingPool",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.VRFCoordinatorV2Interface>;
+    ): Promise<Contracts.ILendingPool>;
     getContractAt(
-      name: "VRFCoordinatorV2Mock",
+      name: "IWeth",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.VRFCoordinatorV2Mock>;
-    getContractAt(
-      name: "ConfirmedOwner",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ConfirmedOwner>;
-    getContractAt(
-      name: "ConfirmedOwnerWithProposal",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
-    getContractAt(
-      name: "IOwnable",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IOwnable>;
-    getContractAt(
-      name: "LinkTokenInterface",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.LinkTokenInterface>;
-    getContractAt(
-      name: "VRFConsumerBaseV2",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.VRFConsumerBaseV2>;
-    getContractAt(
-      name: "Raffle",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Raffle>;
+    ): Promise<Contracts.IWeth>;
 
     deployContract(
-      name: "AutomationBase",
+      name: "ILendingPoolAddressesProvider",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AutomationBase>;
+    ): Promise<Contracts.ILendingPoolAddressesProvider>;
     deployContract(
-      name: "AutomationCompatible",
+      name: "AggregatorV3Interface",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AutomationCompatible>;
+    ): Promise<Contracts.AggregatorV3Interface>;
     deployContract(
-      name: "AutomationCompatibleInterface",
+      name: "IERC20",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AutomationCompatibleInterface>;
+    ): Promise<Contracts.IERC20>;
     deployContract(
-      name: "VRFCoordinatorV2Interface",
+      name: "ILendingPool",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.VRFCoordinatorV2Interface>;
+    ): Promise<Contracts.ILendingPool>;
     deployContract(
-      name: "VRFCoordinatorV2Mock",
+      name: "IWeth",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.VRFCoordinatorV2Mock>;
-    deployContract(
-      name: "ConfirmedOwner",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ConfirmedOwner>;
-    deployContract(
-      name: "ConfirmedOwnerWithProposal",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
-    deployContract(
-      name: "IOwnable",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IOwnable>;
-    deployContract(
-      name: "LinkTokenInterface",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.LinkTokenInterface>;
-    deployContract(
-      name: "VRFConsumerBaseV2",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.VRFConsumerBaseV2>;
-    deployContract(
-      name: "Raffle",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Raffle>;
+    ): Promise<Contracts.IWeth>;
 
     deployContract(
-      name: "AutomationBase",
+      name: "ILendingPoolAddressesProvider",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AutomationBase>;
+    ): Promise<Contracts.ILendingPoolAddressesProvider>;
     deployContract(
-      name: "AutomationCompatible",
+      name: "AggregatorV3Interface",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AutomationCompatible>;
+    ): Promise<Contracts.AggregatorV3Interface>;
     deployContract(
-      name: "AutomationCompatibleInterface",
+      name: "IERC20",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.AutomationCompatibleInterface>;
+    ): Promise<Contracts.IERC20>;
     deployContract(
-      name: "VRFCoordinatorV2Interface",
+      name: "ILendingPool",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.VRFCoordinatorV2Interface>;
+    ): Promise<Contracts.ILendingPool>;
     deployContract(
-      name: "VRFCoordinatorV2Mock",
+      name: "IWeth",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.VRFCoordinatorV2Mock>;
-    deployContract(
-      name: "ConfirmedOwner",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ConfirmedOwner>;
-    deployContract(
-      name: "ConfirmedOwnerWithProposal",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ConfirmedOwnerWithProposal>;
-    deployContract(
-      name: "IOwnable",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IOwnable>;
-    deployContract(
-      name: "LinkTokenInterface",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.LinkTokenInterface>;
-    deployContract(
-      name: "VRFConsumerBaseV2",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.VRFConsumerBaseV2>;
-    deployContract(
-      name: "Raffle",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Raffle>;
+    ): Promise<Contracts.IWeth>;
 
     // default types
     getContractFactory(

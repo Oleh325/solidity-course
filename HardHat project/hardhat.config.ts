@@ -9,6 +9,7 @@ import "hardhat-deploy"
 import { HardhatUserConfig } from "hardhat/config"
 
 const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL || ""
+const MAINNET_RPC_URL = process.env.MAINNET_RPC_URL || ""
 const SEPOLIA_PRIVATE_KEY = process.env.SEPOLIA_PRIVATE_KEY || ""
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ""
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || ""
@@ -19,9 +20,17 @@ const REPORT_GAS = false
  */
 
 const config: HardhatUserConfig = {
-    solidity: "0.8.19",
+    solidity: {
+        compilers: [{ version: "0.8.24" }, { version: "0.6.12" }, { version: "0.6.6" }, { version: "0.6.0" }, { version: "0.4.19" }],
+    },
     defaultNetwork: "hardhat",
     networks: {
+        hardhat: {
+            chainId: 31337,
+            forking: {
+                url: MAINNET_RPC_URL,
+            },
+        },
         localhost: {
             chainId: 31337,
         },
@@ -34,7 +43,7 @@ const config: HardhatUserConfig = {
     etherscan: {
         apiKey: {
             sepolia: ETHERSCAN_API_KEY,
-        }
+        },
     },
     gasReporter: {
         enabled: REPORT_GAS,
