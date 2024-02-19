@@ -27,7 +27,9 @@
 
 ## About The Project
 
-This is a sample "smartRaffle" lottery project on Solidity, that was created by following the course "Learn Blockchain, Solidity, and Full Stack Web3 Development with JavaScript – 32-Hour Course" from freeCodeCamp at YouTube. The project is written using HardHat Ethereum development environment, and utilizes Chainlink VFR and Chainlink Automation to get truly random numbers for the lottery and to automate the lottery drawing process. You can run tests locally or on Testnet. The project also includes a simple frontend that can be used to interact with the contract.
+This is a sample NFT project on Solidity, that was created by following the course "Learn Blockchain, Solidity, and Full Stack Web3 Development with JavaScript – 32-Hour Course" from freeCodeCamp at YouTube. 
+
+Finish the readme.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

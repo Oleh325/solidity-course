@@ -19,7 +19,9 @@ const REPORT_GAS = false
  */
 
 const config: HardhatUserConfig = {
-    solidity: "0.8.19",
+    solidity: {
+        compilers: [{ version: "0.8.20" }, { version: "0.8.7" }],
+    },
     defaultNetwork: "hardhat",
     networks: {
         localhost: {
