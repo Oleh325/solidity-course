@@ -65,7 +65,6 @@ To get a local copy up and running follow these simple example steps.
 4. Create a ".env" file and populate it with the following value:
     ```env
     MAINNET_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/example
-    MAINNET_PRIVATE_KEY=f3df9766fd71afe58dc7362a62060d18323acb4a9fe256473d9121dcca5516ae
     ```
     As we will be forking the Mainnet for our purposes.
 
