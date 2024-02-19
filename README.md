@@ -27,7 +27,7 @@
 
 ## About The Project
 
-This is a sample "smartRaffle" lottery project on Solidity, that was created by following the course "Learn Blockchain, Solidity, and Full Stack Web3 Development with JavaScript – 32-Hour Course" from freeCodeCamp at YouTube. The project is written using HardHat Ethereum development environment, and utilizes Chainlink VFR and Chainlink Automation to get truly random numbers for the lottery and to automate the lottery drawing process. You can run tests locally or on Testnet. The project also includes a simple frontend that can be used to interact with the contract.
+This project contains a sample ERC-20 Token contracts on Solidity, that were created by following the course "Learn Blockchain, Solidity, and Full Stack Web3 Development with JavaScript – 32-Hour Course" from freeCodeCamp at YouTube. The project is written using HardHat Ethereum development environment, and has two token implementation — the manual one, and the one created using OpenZeppelin library. You can deploy the token to any preferred network and play with it freely.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -37,7 +37,7 @@ This is a sample "smartRaffle" lottery project on Solidity, that was created by 
 -   [![Typescript][Typescriptlang.org]][Typescript-url]
 -   [![Solidity][Soliditylang.org]][Solidity-url]
 -   [<img src="https://i.ibb.co/vmt4rKJ/badge.jpg" alt="Hardhat logo" style="height: 25px; width:97px;"/>][Hardhat-url]
--   [![Chainlink][Chain.link]][Chainlink-url]
+-   [![Ethereum][Ethereum.org]][Ethereum-url]  
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -70,12 +70,11 @@ To get a local copy up and running follow these simple example steps.
     SEPOLIA_PRIVATE_KEY=0x000example000 - optional
     ETHERSCAN_API_KEY=your_etherscan_api_key - optional
     ```
-6. To compile the contract, run:
+6. To compile the token contract, run:
     ```sh
     yarn hardhat compile
     ```
     This will create an "artifacts" folder with the compiled contract and typechain files.
-7. **(OPTIONAL)** If you want to deploy the contract to Sepolia Testnet, you need to register an VRF subscription and an Upkeep at https://vrf.chain.link/ and https://automation.chain.link/ respectively. Don't forget to update all the values at "helper-hardhat-config.json".
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -83,34 +82,25 @@ To get a local copy up and running follow these simple example steps.
 
 ## Usage
 
-To run tests locally, run:
+For tests, run:
 ```sh
-yarn test
+hh test
 ```
 
-To run tests on Sepolia, run:
+To deploy the token, run:
 ```sh
-yarn test --network sepolia
+hh deploy
 ```
 
-For deploying on Sepolia Testnet, run:
-
+To deploy on Sepolia Testnet, run:
 ```sh
-yarn hardhat deploy --network sepolia
+hh deploy --network sepolia
 ```
 
 It will return the address of the deployed contract, which you can look up on Sepolia Testnet Etherscan: https://sepolia.etherscan.com/
 
-To deploy the contract to Localhost, run:
-```sh
-yarn hardhat node
-```
-To manually choose the winner (we have to mock the Automation), run:
-```sh
-hh run scripts/mockOffchain.ts
-```
+If you want to change the script to manual token implementation, you can do so by changing the "01-deploy-token.ts" file in the "deploy" folder. Simply replace "OurToken" with "ManualToken".
 
-All the info about the deployed contract will be displayed in the terminal window running the node. The contract address and ABI files are generated and saved to "Frontend/constants" folder for testing frontend with Testnet or locally.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -155,5 +145,7 @@ Please, check out <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/
 [Solidity-url]: https://soliditylang.org/
 [Chain.link]: https://img.shields.io/badge/Chainlink-375BD2?style=for-the-badge&logo=Chainlink&logoColor=white
 [Chainlink-url]: https://chain.link/
+[Ethereum.org]: https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white
+[Ethereum-url]: https://ethereum.org/
 [Hardhat-url]: https://hardhat.org/
 [Alchemy-url]: https://www.alchemy.com/
