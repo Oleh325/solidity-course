@@ -28,4 +28,4 @@ const deployNFT: DeployFunction = async function (hre: HardhatRuntimeEnvironment
 }
 
 export default deployNFT
-deployNFT.tags = ["all"]
+deployNFT.tags = ["all", "basic"]
