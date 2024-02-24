@@ -10,7 +10,7 @@ const VRF_SUB_FUND_AMOUNT = "1000000000000000000000"
 const IMAGES_PATH = "./images/randomNFT"
 
 const metadataTemplate = {
-    name: "", 
+    name: "",
     description: "",
     image: "",
     attributes: [
@@ -26,7 +26,13 @@ const deployNFT: DeployFunction = async function (hre: HardhatRuntimeEnvironment
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
     const chainId = network.config.chainId!
-    let VRFCoordinatorV2Address: string, subscriptionId, tokenURIs: string[]
+    let VRFCoordinatorV2Address: string,
+        subscriptionId,
+        tokenURIs: string[] = [
+            'ipfs://QmaVkBn2tKmjbhphU7eyztbvSQU5EXDdqRyXZtRhSGgJGo',
+            'ipfs://QmYQC5aGZu2PTH8XzbJrbDnvhj3gVs7ya33H9mqUNvST3d',
+            'ipfs://QmZYmH5iDbD6v3U2ixoVAjioSzvWJszDzYdbeCLquGSpVm'
+        ]
 
     if (process.env.UPLOAD_TO_PINATA === "true") {
         tokenURIs = await handleTokenURIs()
@@ -58,9 +64,24 @@ const deployNFT: DeployFunction = async function (hre: HardhatRuntimeEnvironment
         subscriptionId,
         networkConfig[chainId].gasLane,
         networkConfig[chainId].callbackGasLimit,
-        //uri,
+        tokenURIs,
         networkConfig[chainId].mintFee,
     ]
+
+    const randomIPFSNFT = await deploy("RandomIPFSNFT", {
+        from: deployer,
+        args,
+        log: true,
+        waitConfirmations: waitBlockConfirmations,
+    })
+
+    console.log("Random IPFS NFT deployed to: ", randomIPFSNFT.address)
+
+    if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+        console.log("Verifying...")
+        await verify(randomIPFSNFT.address, args)
+        console.log("Random IPFS NFT verified!")
+    }    
 }
 
 async function handleTokenURIs() {

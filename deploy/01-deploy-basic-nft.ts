@@ -22,8 +22,9 @@ const deployNFT: DeployFunction = async function (hre: HardhatRuntimeEnvironment
     })
 
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
-        log("Verifying...")
+        console.log("Verifying...")
         await verify(basicNFT.address, args)
+        console.log("Basic NFT verified!")
     }    
 }
 
