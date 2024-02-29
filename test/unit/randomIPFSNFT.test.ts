@@ -183,7 +183,7 @@ import { assert } from "chai"
                       "VRFCoordinatorV2Mock",
                       deployer,
                   )) as VRFCoordinatorV2Mock
-                  vrfCoordinatorV2Mock.addConsumer(await randomIPFSNFT.getSubscriptionId(), randomIPFSNFT.getAddress())
+                  vrfCoordinatorV2Mock.addConsumer(await randomIPFSNFT.getSubscriptionId(), await randomIPFSNFT.getAddress())
                   const mintFee = await randomIPFSNFT.getMintFee()
                   const mintTransaction = await randomIPFSNFT.requestNFT({ value: mintFee })
                   const mintReceipt = await mintTransaction.wait(1)

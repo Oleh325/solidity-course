@@ -46,4 +46,4 @@ const deployDynamicSVGNFT: DeployFunction = async function (hre: HardhatRuntimeE
 }
 
 export default deployDynamicSVGNFT
-deployDynamicSVGNFT.tags = ["all", "dynamic", "svg"]
+deployDynamicSVGNFT.tags = ["all", "dynamic", "svg", "main"]
