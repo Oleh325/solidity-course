@@ -1,4 +1,4 @@
-<h1 align="center">smartRaffle</h1>
+<h1 align="center">NFT starter</h1>
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -27,9 +27,11 @@
 
 ## About The Project
 
-This is a sample NFT project on Solidity, that was created by following the course "Learn Blockchain, Solidity, and Full Stack Web3 Development with JavaScript – 32-Hour Course" from freeCodeCamp at YouTube. 
-
-Finish the readme.
+This is a sample NFT project on Solidity, that was created by following the course "Learn Blockchain, Solidity, and Full Stack Web3 Development with JavaScript – 32-Hour Course" from freeCodeCamp at YouTube.
+It has:
+1. Basic NFT contract with image URI stored on the IPFS
+2. Random NFT contract, that gets a random number from an Chainlink VRF node, and has a different image URI depending on the result
+3. Dynamic SVG NFT contract, that gets information about the ETH price from Chainlink Price Feeds and generates happy or frowned face depending on the price relative to the one set while minting. The URI is stored on chain, and is Base64 encoded
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -40,6 +42,7 @@ Finish the readme.
 -   [![Solidity][Soliditylang.org]][Solidity-url]
 -   [<img src="https://i.ibb.co/vmt4rKJ/badge.jpg" alt="Hardhat logo" style="height: 25px; width:97px;"/>][Hardhat-url]
 -   [![Chainlink][Chain.link]][Chainlink-url]
+-   [<img src="https://i.ibb.co/6rDd1Y1/IPFS-logo.png" alt="IPFS logo" style="height: 25px; width:58px;"/>][IPFS-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -60,6 +63,7 @@ To get a local copy up and running follow these simple example steps.
     ```sh
     git clone https://github.com/Oleh325/solidity-course.git
     ```
+    And switch to the ```ultimate-nft``` branch.
 3. Install yarn packages
     ```sh
     yarn install
@@ -71,13 +75,18 @@ To get a local copy up and running follow these simple example steps.
     LOCALHOST_RPC_URL=http://127.0.0.1:8545/
     SEPOLIA_PRIVATE_KEY=0x000example000 - optional
     ETHERSCAN_API_KEY=your_etherscan_api_key - optional
+    COINMARKETCAP_API_KEY=your_coinmarketcap_api_key - optional
+    PINATA_API_KEY=your_pinata_api_key - optional, only if you want to upload to IPFS via Pinata
+    PINATA_API_SECRET=your_pinata_api_secret - optional, only if you want to upload to IPFS via Pinata
+    PINATA_SECRET_JWT=yout_pinata_secret_jwt - optional, only if you want to upload to IPFS via Pinata
+    UPLOAD_TO_PINATA=false - set to true if you want to upload to IPFS via Pinata
     ```
 6. To compile the contract, run:
     ```sh
     yarn hardhat compile
     ```
     This will create an "artifacts" folder with the compiled contract and typechain files.
-7. **(OPTIONAL)** If you want to deploy the contract to Sepolia Testnet, you need to register an VRF subscription and an Upkeep at https://vrf.chain.link/ and https://automation.chain.link/ respectively. Don't forget to update all the values at "helper-hardhat-config.json".
+7. **(OPTIONAL)** If you want to deploy the contract to Sepolia Testnet, you need to register an VRF subscription at https://vrf.chain.link/. Don't forget to update all the values at "helper-hardhat-config.json". After deploying, simply add RandomIPFSNFT contract as a consumer.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -85,34 +94,41 @@ To get a local copy up and running follow these simple example steps.
 
 ## Usage
 
+You can use "uploadToPinata.ts" script to upload images to the IPFS using Pinata. For that you need to set the appropriate values in the ".env" file. The uploading is done automatically when you run the deployment script for the Random IPFS NFT contract.
+
 To run tests locally, run:
 ```sh
-yarn test
+hh test
 ```
 
-To run tests on Sepolia, run:
+For deploying locally, run:
 ```sh
-yarn test --network sepolia
+hh node
+```
+And in another terminal window:
+```sh
+hh deploy --tags main
+```
+
+Then you can mint NFTs using the mint script:
+```sh
+hh deploy --tags mint
 ```
 
 For deploying on Sepolia Testnet, run:
 
 ```sh
-yarn hardhat deploy --network sepolia
+hh deploy --network sepolia --tags main
 ```
 
-It will return the address of the deployed contract, which you can look up on Sepolia Testnet Etherscan: https://sepolia.etherscan.com/
+It will return the addressess of the deployed contracts, which you can look up on Sepolia Testnet Etherscan: https://sepolia.etherscan.com/
 
-To deploy the contract to Localhost, run:
+Then you can mint NFTs using the mint script:
 ```sh
-yarn hardhat node
-```
-To manually choose the winner (we have to mock the Automation), run:
-```sh
-hh run scripts/mockOffchain.ts
+hh deploy --network sepolia --tags mint
 ```
 
-All the info about the deployed contract will be displayed in the terminal window running the node. The contract address and ABI files are generated and saved to "Frontend/constants" folder for testing frontend with Testnet or locally.
+You can then check your NFTs on Sepolia Testnet OpenSea: https://testnets.opensea.io/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -158,4 +174,5 @@ Please, check out <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/
 [Chain.link]: https://img.shields.io/badge/Chainlink-375BD2?style=for-the-badge&logo=Chainlink&logoColor=white
 [Chainlink-url]: https://chain.link/
 [Hardhat-url]: https://hardhat.org/
+[IPFS-url]: https://ipfs.tech/
 [Alchemy-url]: https://www.alchemy.com/

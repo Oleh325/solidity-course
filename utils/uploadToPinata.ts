@@ -1,4 +1,4 @@
-import pinataSDK, { PinataPinOptions } from "@pinata/sdk"
+import pinataSDK from "@pinata/sdk"
 import path from "path"
 import fs from "fs"
 import "dotenv/config"
