@@ -51,6 +51,7 @@ After deploying the contract, set up the frontend by following the steps below.
     ```sh
     git clone https://github.com/Oleh325/solidity-course.git
     ```
+    And switch to the ```fundme-frontend``` branch.
 2. Install yarn packages
     ```sh
     yarn install
