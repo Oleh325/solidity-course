@@ -54,6 +54,7 @@ To get a local copy up and running follow these simple example steps.
     ```sh
     git clone https://github.com/Oleh325/solidity-course.git
     ```
+    And switch to the ```ethers-simple-storage``` branch.
 3. Install yarn packages
     ```sh
     yarn install
