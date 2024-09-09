@@ -1,3 +1,5 @@
+<a id="readme-top"></a>
+
 <h1 align="center">smartRaffle</h1>
 
 <!-- TABLE OF CONTENTS -->
